@@ -1,0 +1,53 @@
+@import '../abstracts/variables.scss';
+
+.expenseList_comp {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    max-height: 300px;
+    overflow: auto;
+
+    .exListBox {
+        li.exListItem {
+            list-style: none;
+            margin: 10px 0;
+        }
+    }
+
+    .expenseListContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+        color: $black;
+        background: rgb(229 229 229 / 45%);
+        padding: 14px 15px 14px 10px;
+        border-radius: 20px;
+        width: 325px;
+
+        .left {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            .icon {
+                background-color: $primary_color;
+                color: $white;
+                padding: 8px 10px;
+                font-size: 18px;
+                border-radius: 12px;
+            }
+
+            .details {
+                text-align: left;
+
+                .listPara {
+                    color: $grey;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+}
