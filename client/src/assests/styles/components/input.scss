@@ -7,3 +7,22 @@ input {
     background-color: #671a740f;
     font-weight: 600;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.textBox {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        flex-direction: column-reverse;
+    }
+}

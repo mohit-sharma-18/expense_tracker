@@ -1,6 +1,7 @@
 import './App.css';
 // import WelcomePage from './pages/welcome/welcome';
 import './assests/styles/main.scss'
+import AddExpense from './pages/expense/addExpense';
 import Home from './pages/home/home';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/addExpense" element={<AddExpense />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </div>

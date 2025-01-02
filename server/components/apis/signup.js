@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('../../db.js')
 const router = express.Router()
+const sendErrorResponse = require('./toastResponse.js')
 
 router.use(express.json())
 
@@ -10,19 +11,9 @@ router.post('/', (req, res) => {
     db.query('insert into admindata.users(username,email,password) values($1,$2,$3)', [username, email, password], (err, result) => {
         if (err) {
             console.log('Error while insert data ' + err);
-            return res.json({
-                "toastHeader": "Error",
-                "toastMsg": "Internal Server Error",
-                "toastColor": "red",
-                "toastIcon": "fa-close"
-            })
+            return sendErrorResponse(res, "Error", "Internal Server Error")
         }
-        res.status(200).json({
-            "toastHeader": "Success",
-            "toastMsg": "Account created successfully.",
-            "toastColor": "green",
-            "toastIcon": "fa-check"
-        })
+        sendErrorResponse(res.status(200), "Success", "Account created successfully.")
     })
 })
 

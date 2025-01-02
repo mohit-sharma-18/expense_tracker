@@ -1,6 +1,8 @@
 import 'font-awesome/css/font-awesome.min.css';
 import { useState } from 'react';
 import ExpenseList from '../../components/ExpenseList';
+import Header from '../../components/Header';
+import { Link } from 'react-router-dom'
 
 
 const Home = (props) => {
@@ -14,24 +16,7 @@ const Home = (props) => {
             <div className="home_comp">
                 <div className="container">
                     <div className="clearfix"></div>
-                    <div className="headerContainer">
-                        <div className="left">
-                            <div className='squareDots'>
-                                <div>
-                                    <p className='dots'></p>
-                                    <p className='dots'></p>
-                                </div>
-                                <div>
-                                    <p className='dots'></p>
-                                    <p className='dots'></p>
-                                </div>
-                            </div>
-                            <p className='dashboard'>Dashboard</p>
-                        </div>
-                        <div className="right">
-                            <i className='fa fa-user'></i>
-                        </div>
-                    </div>
+                    < Header dots={true} name="Dashboard" userProfile={true} />
                     <div className="clearfix"></div>
                     <div className="expenseContainer">
                         <div className="totalMoney"> <span className="rupess">&#x20b9;</span> {totalSum}</div>
@@ -50,7 +35,7 @@ const Home = (props) => {
                         <ExpenseList listHeader="Coffee" listPara="with anyone" expense="100" />
                     </div>
                     <div className="addIcon">
-                        <i className="fa fa-plus"></i>
+                        <Link to='/addExpense'> <i className="fa fa-plus"></i> </Link>
                     </div>
                 </div>
             </div>
