@@ -2,7 +2,7 @@ import TextBox from '../../components/TextBox'
 import logo from '../../images/logo.png'
 import Button from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import callApi from '../../utility/callApi'
 import Toast from '../../components/Toast'
 
@@ -34,6 +34,16 @@ const Login = () => {
         }))
 
     }
+    //i will handle state later with redux or contxt
+    useEffect((e) => {
+        let timeout;
+        if (showToast) {
+            timeout = setTimeout(() => {
+                setShowToast(false)
+            }, 2000);
+        }
+        return (() => clearTimeout(timeout))
+    }, [showToast])
     return (
         <>
             <div className="login_comp">

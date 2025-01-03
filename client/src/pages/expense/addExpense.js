@@ -38,13 +38,6 @@ const AddExpense = () => {
     }
 
 
-    // useEffect((e) => {
-    //     callApi('/addExpense', 'GET', null).then((data) => {
-    //         console.log('data', data);
-    //         setApiData(data)
-    //         setShowToast(true)
-    //     })
-    // }, [])
 
     const handlerSelectList = (value) => {
         console.log("Selected value:", value);
@@ -58,6 +51,16 @@ const AddExpense = () => {
             setShowToast(true)
         })
     }
+    //i will handle state later with redux or contxt
+    useEffect((e) => {
+        let timeout;
+        if (showToast) {
+            timeout = setTimeout(() => {
+                setShowToast(false)
+            }, 2000);
+        }
+        return (() => clearTimeout(timeout))
+    }, [showToast])
 
     return <>
         <div className="addExpense_comp">

@@ -41,6 +41,17 @@ const Signup = () => {
         }
 
     }, [apiData])
+    
+     //i will handle state later with redux or contxt
+     useEffect((e) => {
+        let timeout;
+        if (showToast) {
+            timeout = setTimeout(() => {
+                setShowToast(false)
+            }, 2000);
+        }
+        return (() => clearTimeout(timeout))
+    }, [showToast])
 
     return (
 

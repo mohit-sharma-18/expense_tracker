@@ -1,20 +1,46 @@
 import 'font-awesome/css/font-awesome.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExpenseList from '../../components/ExpenseList';
 import Header from '../../components/Header';
 import { Link } from 'react-router-dom'
+import callApi from '../../utility/callApi';
+import Toast from '../../components/Toast';
 
 
 const Home = (props) => {
+
+    const [apiData, setApiData] = useState([])
+    const [showToast, setShowToast] = useState(false)
     const [defaults, setDefaults] = useState({
-        totalSum: '12,345',
-        day: 'Today'
+        totalSum: '',
+        day: '',
+        password: '',
+        confirmPass: '',
     })
-    const { totalSum, day } = defaults
+    useEffect(() => {
+        callApi('/home', 'GET', null).then((data) => {
+            setApiData(data)
+        })
+    }, [])
+
+    console.log('apidata', apiData);
+    //i will handle state later with redux or contxt
+    useEffect((e) => {
+        let timeout;
+        if (showToast) {
+            timeout = setTimeout(() => {
+                setShowToast(false)
+            }, 2000);
+        }
+        return (() => clearTimeout(timeout))
+    }, [showToast])
+
+    const { totalSum, day, password, confirmPass } = defaults
     return (
         <>
             <div className="home_comp">
                 <div className="container">
+                    {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                     <div className="clearfix"></div>
                     < Header dots={true} name="Dashboard" userProfile={true} />
                     <div className="clearfix"></div>

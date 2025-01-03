@@ -8,6 +8,8 @@ const callApi = (apiPath, apiMethod, apibody) => {
         body: apibody ? JSON.stringify(apibody) : null
     })
         .then((res) => {
+            console.log('res',res);
+            
             if (!res.ok) {
                 console.log('Error')
             }
