@@ -20,8 +20,6 @@ const Login = () => {
         e.preventDefault()
         callApi('/login', 'POST', defaults).then((data) => {
             if (data.auth === true) {
-                console.log(data.auth);
-                
                 return Navigate(data.resPath)
             }
             setApidata(data)

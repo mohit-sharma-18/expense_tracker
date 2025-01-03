@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../../db')
-router.use(express.json())
 const sendErrorResponse = require('./toastResponse.js')
 
+router.use(express.json())
 router.post('/', (req, res) => {
     console.log('req', req.body);
     const { email, password } = req.body
@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
             return sendErrorResponse(res, "Error", "Invalid login/password")
         }
         if (email === result.rows[0].email) {
+            req.session.user = { email }
             return res.json({ "resPath": "/home", "auth": true })
         }
         sendErrorResponse(res, "Error", "Invalid login/password")

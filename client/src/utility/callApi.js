@@ -5,7 +5,7 @@ const callApi = (apiPath, apiMethod, apibody) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(apibody)
+        body: apibody ? JSON.stringify(apibody) : null
     })
         .then((res) => {
             if (!res.ok) {
@@ -23,26 +23,3 @@ const callApi = (apiPath, apiMethod, apibody) => {
 }
 
 export default callApi
-
- // fetch('/signup', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(defaults)
-        // })
-        //     .then((res) => {
-        //         if (!res.ok) {
-        //             console.log('Error')
-        //         }
-        //         return res.json()
-        //     })
-        //     .then((data) => {
-        //         console.log('Response', data)
-        //         setApiData(data)
-        //         setShowToast(true)
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error while post req', err);
-
-        //     })
