@@ -6,7 +6,7 @@ const sendErrorResponse = require('./toastResponse')
 router.use(express.json())
 
 router.post('/', (req, res) => {
-    const { amount, description, expenseType } = req.body
+    const { amount, description, expenseType, icon } = req.body
     if (!req.session.user) {
         return sendErrorResponse(res, 'Error', "Login First")
     }
@@ -14,8 +14,8 @@ router.post('/', (req, res) => {
     const username = 'not specified'
     db.query('select username from admindata.users where email = $1', [email], (err, result) => {
         const fetchedUserName = result.rows.length > 0 ? result.rows[0].username : username
-        db.query('INSERT INTO ADMINDATA.EXPENSE_SUMMARY(EMAIL,EXPENSE_TYPE,DESCRIPTION,AMOUNT,USERNAME) VALUES($1,$2,$3,$4::bigint,$5)',
-            [email, expenseType, description, amount, fetchedUserName], (err, result) => {
+        db.query('INSERT INTO ADMINDATA.EXPENSE_SUMMARY(EMAIL,EXPENSE_TYPE,DESCRIPTION,AMOUNT,USERNAME,ICON) VALUES($1,$2,$3,$4::bigint,$5,$6)',
+            [email, expenseType, description, amount, fetchedUserName, icon], (err, result) => {
                 if (err) {
                     console.log(err);
                     return sendErrorResponse(res, 'Error', "Internal Server Error")

@@ -1,13 +1,35 @@
 @import '../abstracts/variables.scss';
 
 .home_comp {
-    .clearfix {
-        padding: 12px 0;
-    }
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .clearfix {
+        padding: 12px 0;
+    }
+
+    .noDataFoundContainer {
+        display: grid;
+        justify-items: center;
+        .noDataFound {
+            color: $primary_color;
+            font-weight: bolder;
+            font-size: 32px;
+        }
+
+        .noDataFoundPara {
+            color: $grey;
+            width: 244px;
+            padding: 10px
+        }
+    }
+
+    .expenseList {
+        max-height: 536px;
+        overflow: auto;
+    }
 
     .expenseContainer {
         display: flex;
@@ -35,7 +57,7 @@
         }
     }
 
-   
+
 
     .expenseDetails {
         display: flex;

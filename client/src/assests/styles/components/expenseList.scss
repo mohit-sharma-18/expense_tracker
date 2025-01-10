@@ -3,9 +3,6 @@
 .expenseList_comp {
     display: flex;
     justify-content: center;
-    height: 300px;
-    max-height: 300px;
-    overflow: auto;
 
     .exListBox {
         li.exListItem {
@@ -24,6 +21,7 @@
         padding: 14px 15px 14px 10px;
         border-radius: 20px;
         width: 325px;
+
 
         .left {
             display: flex;

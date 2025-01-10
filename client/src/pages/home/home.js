@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import { Link } from 'react-router-dom'
 import callApi from '../../utility/callApi';
 import Toast from '../../components/Toast';
+import noDataFoundImage from '../../images/nodatauser.png'
 
 
 const Home = (props) => {
@@ -12,7 +13,7 @@ const Home = (props) => {
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
     const [defaults, setDefaults] = useState({
-        totalSum: '',
+        totalSum: '0',
         day: '',
         password: '',
         confirmPass: '',
@@ -24,6 +25,18 @@ const Home = (props) => {
     }, [])
 
     console.log('apidata', apiData);
+
+    useEffect((e) => {
+        if (apiData.length > 0) {
+            apiData.filter((e) => {
+                e.expense_type == 'Total' && setDefaults(prev => ({
+                    ...prev,
+                    totalSum: e.amount
+                }))
+            })
+        }
+    }, [apiData])
+
     //i will handle state later with redux or contxt
     useEffect((e) => {
         let timeout;
@@ -50,16 +63,28 @@ const Home = (props) => {
                     </div>
                     <div className="clearfix"></div>
                     <div className="expenseDetails">
-                        <div className="allExpense">All Expenses</div>
+                        <div className="allExpense">All Expenses {apiData.length > 0 ? `(${apiData.length - 1})` : '(0)'}</div>
                         <div className="viewAll">View All</div>
                     </div>
                     <div className="expenseDay">
                         <div className="day">{day}</div>
                     </div>
                     {/* <div className="clearfix"></div> */}
-                    <div className="expenseList">
-                        <ExpenseList listHeader="Coffee" listPara="with anyone" expense="100" />
-                    </div>
+                    {apiData.length > 0 ?
+                        <div className="expenseList">
+                            {apiData.map((e, i) => {
+                                if (e.expense_type !== "Total")
+                                    return (<ExpenseList key={i} listHeader={e.expense_type} listPara={e.description} expense={e.amount} icon={e.icon} />)
+                            })}
+                            {/* <ExpenseList listData={apiData} /> */}
+
+                        </div>
+                        :
+                        <div className='noDataFoundContainer'> <div className="clearfix"></div>
+                            <img src={noDataFoundImage} alt="" width={300} />
+                            <div className="noDataFound">No expenses added</div>
+                            <p className='noDataFoundPara'>Start tracking your expenses to see them here!</p></div>
+                    }
                     <div className="addIcon">
                         <Link to='/addExpense'> <i className="fa fa-plus"></i> </Link>
                     </div>

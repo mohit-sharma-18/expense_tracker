@@ -12,22 +12,23 @@ const AddExpense = () => {
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
     const expenseTypeData = [
-        { value: "TS", label: "Tea & Snacks" },
-        { value: "GROCERY", label: "Grocery" },
-        { value: "V", label: "Vehicle" },
-        { value: "FOOD", label: "Food" },
-        { value: "GIFT", label: "Gift" },
-        { value: "OS", label: "Online Shopping" },
-        { value: "S", label: "Subscription" },
-        { value: "Cab", label: "Cab" },
-        { value: "Shopping", label: "Shopping" },
-        { value: "BILL", label: "Bill" },
-        { value: "OTHERS", label: "Others" },
+        { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
+        { value: "Grocery", label: "Grocery", icon: "fa-shopping-basket" },
+        { value: "Vehicle", label: "Vehicle", icon: "fa-car" },
+        { value: "Food", label: "Food", icon: "fa-burger" },
+        { value: "Gift", label: "Gift", icon: "fa-gift" },
+        { value: "Online Shopping", label: "Online Shopping", icon: "fa-cart-shopping" },
+        { value: "Subscription", label: "Subscription", icon: "fa-film" },
+        { value: "Cab", label: "Cab", icon: "fa-car" },
+        { value: "Shopping", label: "Shopping", icon: "fa-shopping-basket" },
+        { value: "Recharge/Bill", label: "Recharge/Bill", icon: "fa-file" },
+        { value: "Others", label: "Others", icon: "fa-group-arrows-rotate" },
     ];
     const [defaults, setDefaults] = useState({
         amount: '',
         description: '',
-        expenseType: 'OTHERS'
+        expenseType: 'Others',
+        icon: ''
     })
     const { amount, description } = defaults
     const handlerChange = (e) => {
@@ -39,9 +40,14 @@ const AddExpense = () => {
 
 
 
-    const handlerSelectList = (value) => {
-        console.log("Selected value:", value);
-        setSelectedValue(value);
+    const handlerSelectList = (e) => {
+        const fetchedIcon = e.target.options[e.target.selectedIndex].getAttribute("data-icon")
+        setDefaults((prev) => ({
+            ...prev,
+            expenseType: e.target.value,
+            icon: fetchedIcon
+        }))
+        setSelectedValue(e.target.value);
     };
 
     const handleSubmit = (e) => {

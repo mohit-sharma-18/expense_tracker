@@ -44,6 +44,7 @@ const Login = () => {
         }
         return (() => clearTimeout(timeout))
     }, [showToast])
+
     return (
         <>
             <div className="login_comp">
@@ -61,8 +62,8 @@ const Login = () => {
                     <div className="formDetails">
                         <form onSubmit={handlerSubmit}>
                             <div className="formElements">
-                                <TextBox name="email" placeholder="Email" value={email} onChange={handlerChange}></TextBox>
-                                <TextBox name="password" placeholder="Password" value={password} onChange={handlerChange}></TextBox>
+                                <TextBox type="text"  name="email" placeholder="Email" value={email} onChange={handlerChange}></TextBox>
+                                <TextBox type="password" name="password" placeholder="Password" value={password} onChange={handlerChange}></TextBox>
                                 <div className='forgotPass'><a href='#' >Forgot your password?</a></div>
                             </div>
                             <div className="btn">

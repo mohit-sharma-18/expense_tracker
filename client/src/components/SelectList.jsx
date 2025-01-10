@@ -4,11 +4,11 @@ const SelectList = ({ options, onChange, placeholder, value }) => {
             <select
                 className="custom-select stylish-select"
                 value={value}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => onChange(e)}
             >
                 {placeholder && <option value="">{placeholder}</option>}
                 {options.map((option, index) => (
-                    <option key={index} value={option.value}>
+                    <option key={index} value={option.value} data-icon={option.icon}>
                         {option.label}
                     </option>
                 ))}

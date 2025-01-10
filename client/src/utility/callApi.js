@@ -8,10 +8,16 @@ const callApi = (apiPath, apiMethod, apibody) => {
         body: apibody ? JSON.stringify(apibody) : null
     })
         .then((res) => {
-            console.log('res',res);
-            
+            console.log('res', res);
             if (!res.ok) {
                 console.log('Error')
+                return {
+                    "toastHeader": 'Error',
+                    "toastMsg": res.statusText,
+                    "toastColor": 'red',
+                    "toastIcon": 'fa-close',
+                    "auth": res.redirected
+                }
             }
             return res.json()
         })
