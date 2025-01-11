@@ -62,8 +62,8 @@ const Login = () => {
                     <div className="formDetails">
                         <form onSubmit={handlerSubmit}>
                             <div className="formElements">
-                                <TextBox type="text"  name="email" placeholder="Email" value={email} onChange={handlerChange}></TextBox>
-                                <TextBox type="password" name="password" placeholder="Password" value={password} onChange={handlerChange}></TextBox>
+                                <TextBox id="emailInput" type="text"  name="email" placeholder="Email" value={email} onChange={handlerChange}></TextBox>
+                                <TextBox id="passwordInput" type="password" name="password" placeholder="Password" value={password} onChange={handlerChange}></TextBox>
                                 <div className='forgotPass'><a href='#' >Forgot your password?</a></div>
                             </div>
                             <div className="btn">
