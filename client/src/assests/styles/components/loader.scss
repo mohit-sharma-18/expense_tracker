@@ -1,0 +1,25 @@
+.loader_comp {
+    z-index: 11;
+    position: fixed;
+    width: 100%;
+    background: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loaderDots {
+        width: 13px;
+        aspect-ratio: 5;
+        background: radial-gradient(circle closest-side, #000 90%, rgba(0, 0, 0, 0)) 0 / 33.3333333333% 100% space;
+        clip-path: inset(0 100% 0 0);
+        animation: l1 1s steps(4) infinite;
+        display: inline-block;
+    }
+
+    @keyframes l1 {
+        to {
+            clip-path: inset(0 -34% 0 0)
+        }
+    }
+}

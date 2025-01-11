@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom'
 import callApi from '../../utility/callApi';
 import Toast from '../../components/Toast';
 import noDataFoundImage from '../../images/nodatauser.png'
-
+import Loader from '../../components/Loader'
 
 const Home = (props) => {
 
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
+    const [loader, setLoader] = useState(true)
     const [defaults, setDefaults] = useState({
         totalSum: '0',
         day: '',
@@ -19,7 +20,7 @@ const Home = (props) => {
         confirmPass: '',
     })
     useEffect(() => {
-        callApi('/home', 'GET', null).then((data) => {
+        callApi('/home', 'GET', null, setLoader).then((data) => {
             setApiData(data)
         })
     }, [])
@@ -51,6 +52,7 @@ const Home = (props) => {
     const { totalSum, day, password, confirmPass } = defaults
     return (
         <>
+            {loader && <Loader />}
             <div className="home_comp">
                 <div className="container">
                     {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
@@ -72,12 +74,7 @@ const Home = (props) => {
                     {/* <div className="clearfix"></div> */}
                     {apiData.length > 0 ?
                         <div className="expenseList">
-                            {apiData.map((e, i) => {
-                                if (e.expense_type !== "Total")
-                                    return (<ExpenseList key={i} listHeader={e.expense_type} listPara={e.description} expense={e.amount} icon={e.icon} />)
-                            })}
-                            {/* <ExpenseList listData={apiData} /> */}
-
+                            <ExpenseList apiData={apiData} />
                         </div>
                         :
                         <div className='noDataFoundContainer'> <div className="clearfix"></div>

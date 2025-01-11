@@ -1,5 +1,5 @@
-const callApi = (apiPath, apiMethod, apibody) => {
-
+const callApi = (apiPath, apiMethod, apibody, setLoader) => {
+    if (setLoader) setLoader(true)
     return fetch(apiPath, {
         method: apiMethod,
         headers: {
@@ -27,6 +27,9 @@ const callApi = (apiPath, apiMethod, apibody) => {
         })
         .catch((err) => {
             console.log('Error while post req', err);
+        })
+        .finally(() => {
+            if (setLoader) setLoader(false)
         })
 }
 

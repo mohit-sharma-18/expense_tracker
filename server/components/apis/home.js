@@ -17,15 +17,14 @@ router.get('/', (req, res) => {
                     order by created_at desc
                 ),
             temp_total as(
-                    select 'Total' as expense_type, ' ' as description, sum(amount) as amount ,icon
+                    select 'Total' as expense_type, ' ' as description, sum(amount) as amount ,' ' as icon
                     from admindata.expense_summary
                     where email = $1
-                    group by icon
-                    having count(*)>0
                 )
                 select * from temp_data
                 union all
-                select * from temp_total`, [email], (err, result) => {
+                select * from temp_total
+                where exists(select 1 from admindata.expense_summary)`, [email], (err, result) => {
         console.log('result', result.rows);
         if (err) {
             console.log('error while fetching data' + err);
