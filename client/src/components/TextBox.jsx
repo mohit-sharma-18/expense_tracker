@@ -10,7 +10,7 @@ const TextBox = (props) => {
             <div className="textBox">
                 <div className="container">
                     <input id={id} type={type} name={name} value={value} placeholder={placeholder} className={className} onChange={onChange} />
-                    {type === "password" && <i class="fa fa-eye" id="togglePassword" onClick={handlePass}></i>}
+                    {type === "password" && <i className="fa fa-eye" id="togglePassword" onClick={handlePass}></i>}
                     <label htmlFor={id}>{label}</label>
                 </div>
 

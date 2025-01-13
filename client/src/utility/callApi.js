@@ -1,14 +1,18 @@
+const apiUrl = process.env.REACT_APP_API_URL
+console.log('apiUrl', apiUrl);
+
 const callApi = (apiPath, apiMethod, apibody, setLoader) => {
     if (setLoader) setLoader(true)
-    return fetch(apiPath, {
+    return fetch(apiUrl + apiPath, {
         method: apiMethod,
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: apibody ? JSON.stringify(apibody) : null
     })
         .then((res) => {
-            console.log('res', res);
+            console.log('res', res, '---', apiUrl + apiPath);
             if (!res.ok) {
                 console.log('Error')
                 return {
