@@ -6,6 +6,8 @@ const sendErrorResponse = require('./toastResponse')
 router.use(express.json())
 
 router.get('/', (req, res) => {
+    console.log('req.session', req.session);
+    
     if (!req.session.user) {
         return sendErrorResponse(res, 'Error', "Login First")
     }
