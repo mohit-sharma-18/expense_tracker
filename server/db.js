@@ -7,10 +7,9 @@ const pool = new Pool({
     host: process.env.db_host,
     database: process.env.db_database,
     port: process.env.db_port,
-    ssl: {
-        rejectUnauthorized: false 
-    }
+    ssl: process.env.node_env === 'production' ? { rejectUnauthorized: false } : false
 })
+
 
 
 pool.connect((err, client, release) => {

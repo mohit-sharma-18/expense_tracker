@@ -23,12 +23,13 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: {
-            secure: process.env.node_env === 'production',  
-            httpOnly: true, 
+            secure: process.env.node_env === 'production',
+            httpOnly: true,
             maxAge: 3600000
         }
     })
 );
+app.set('trust proxy', 1)
 app.use('/signup', signUp)
 app.use('/login', login)
 app.use('/addExpense', addExpense)
