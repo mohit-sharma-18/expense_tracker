@@ -50,7 +50,7 @@ const Home = (props) => {
     }, [showToast])
 
     const { totalSum, day, password, confirmPass } = defaults
-    return (
+    return ( 
         <>
             {loader && <Loader />}
             <div className="home_comp">
