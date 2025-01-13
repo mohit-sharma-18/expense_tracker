@@ -22,7 +22,11 @@ app.use(
         secret: process.env.secret_key,
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: false },
+        cookie: {
+            secure: process.env.NODE_ENV === 'production',  
+            httpOnly: true, 
+            maxAge: 3600000
+        }
     })
 );
 app.use('/signup', signUp)
