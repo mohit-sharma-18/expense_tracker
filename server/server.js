@@ -12,7 +12,8 @@ const session = require('express-session')
 
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.db_frontend,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }))
 
