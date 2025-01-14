@@ -28,11 +28,12 @@ app.use(
         }),
         secret: process.env.secret_key,
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
         cookie: {
             secure: process.env.node_env === 'production',
             httpOnly: true,
             maxAge: 3600000,
+            sameSite:'none'
         }
     })
 );
