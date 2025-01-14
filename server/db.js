@@ -7,7 +7,8 @@ const pool = new Pool({
     host: process.env.db_host,
     database: process.env.db_database,
     port: process.env.db_port,
-    ssl: process.env.node_env === 'production' ? { rejectUnauthorized: false } : false
+    ssl: process.env.node_env === 'production' ? { rejectUnauthorized: false } : false,
+    options: `--search_path=admindata,public`
 })
 
 

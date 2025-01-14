@@ -9,6 +9,8 @@ require('dotenv').config()
 const cors = require('cors')
 const port = 5000
 const session = require('express-session')
+const pgSession = require('connect-pg-simple')(session);
+const pool = require('./db.js')
 
 app.use(express.json())
 app.use(cors({
@@ -19,13 +21,18 @@ app.use(cors({
 
 app.use(
     session({
+        store: new pgSession({
+            pool: pool,
+            tableName: 'session',
+            createTableIfMissing: true,
+        }),
         secret: process.env.secret_key,
         resave: false,
         saveUninitialized: true,
         cookie: {
             secure: process.env.node_env === 'production',
             httpOnly: true,
-            maxAge: 3600000
+            maxAge: 3600000,
         }
     })
 );
