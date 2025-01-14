@@ -22,7 +22,7 @@ const AddExpense = () => {
         { value: "Cab", label: "Cab", icon: "fa-car" },
         { value: "Shopping", label: "Shopping", icon: "fa-shopping-basket" },
         { value: "Recharge/Bill", label: "Recharge/Bill", icon: "fa-file" },
-        { value: "Others", label: "Others", icon: "fa-group-arrows-rotate" },
+        { value: "Others", label: "Others", icon: "fa-random" },
     ];
     const [defaults, setDefaults] = useState({
         amount: '',
