@@ -5,12 +5,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import callApi from '../../utility/callApi'
 import Toast from '../../components/Toast'
-import Loader from '../../components/Loader'
 
 const Login = () => {
     const [apiData, setApidata] = useState([])
     const [showToast, setShowToast] = useState(false)
-    const [loader, setLoader] = useState(true)
     const [defaults, setDefaults] = useState({
         email: '',
         password: ''
@@ -20,7 +18,7 @@ const Login = () => {
 
     const handlerSubmit = (e) => {
         e.preventDefault()
-        callApi('/login', 'POST', defaults,setLoader).then((data) => {
+        callApi('/login', 'POST', defaults).then((data) => {
             if (data.auth === true) {
                 return Navigate(data.resPath)
             }
@@ -49,7 +47,6 @@ const Login = () => {
 
     return (
         <>
-        {loader && <Loader loadingMsg="Just a moment, your login is in progress"/>}
             <div className="login_comp">
                 {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                 <div className="header">
