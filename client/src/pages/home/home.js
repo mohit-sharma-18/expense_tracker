@@ -52,7 +52,7 @@ const Home = (props) => {
     const { totalSum, day, password, confirmPass } = defaults
     return ( 
         <>
-            {loader && <Loader loadingMsg="Loading"/>}
+            {loader && <Loader loaderMsg="Loading"/>}
             <div className="home_comp">
                 <div className="container">
                     {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
