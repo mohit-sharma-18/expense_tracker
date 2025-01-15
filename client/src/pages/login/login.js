@@ -49,7 +49,7 @@ const Login = () => {
 
     return (
         <>
-        {loader && <Loader loadingMsg="Just a moment, your login is in progress..."/>}
+        {loader && <Loader loadingMsg="Just a moment, your login is in progress"/>}
             <div className="login_comp">
                 {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                 <div className="header">
