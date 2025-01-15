@@ -1,7 +1,7 @@
-const Loader = () => {
+const Loader = (props) => {
     return <>
         <div className="loader_comp">
-            <p className="loaderContainer">Loading<span className="loaderDots"></span></p>
+            <p className="loaderContainer">{props.loadingMsg}<span className="loaderDots"></span></p>
         </div>
     </>
 }
