@@ -5,10 +5,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { use, useEffect, useState } from 'react'
 import Toast from '../../components/Toast'
 import callApi from '../../utility/callApi'
+import Loader from '../../components/Loader'
 
 const Signup = () => {
     const Navigate = useNavigate()
     const [showToast, setShowToast] = useState(false)
+    const [loader, setLoader] = useState(false)
     const [defaults, setDefaults] = useState({
         username: '',
         email: '',
@@ -20,8 +22,9 @@ const Signup = () => {
     const { username, email, password, confirmPass } = defaults
 
     const handlerSubmit = (e) => {
+        setLoader(true)
         e.preventDefault()
-        callApi('/signup', 'POST', defaults).then((data) => {
+        callApi('/signup', 'POST', defaults,setLoader).then((data) => {
             setApiData(data)
             setShowToast(true)
         })
@@ -56,6 +59,7 @@ const Signup = () => {
     return (
 
         <>
+         {loader && <Loader loaderMsg="Please wait while we finish setting up your account" />}
             <div className="signup_comp">
                 {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                 <div className="header">
