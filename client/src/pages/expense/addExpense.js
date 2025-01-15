@@ -15,7 +15,7 @@ const AddExpense = () => {
         { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
         { value: "Grocery", label: "Grocery", icon: "fa-shopping-basket" },
         { value: "Vehicle", label: "Vehicle", icon: "fa-car" },
-        { value: "Food", label: "Food", icon: "fa-burger" },
+        { value: "Food", label: "Food", icon: "fa-cutlery" },
         { value: "Gift", label: "Gift", icon: "fa-gift" },
         { value: "Online Shopping", label: "Online Shopping", icon: "fa-cart-shopping" },
         { value: "Subscription", label: "Subscription", icon: "fa-film" },
