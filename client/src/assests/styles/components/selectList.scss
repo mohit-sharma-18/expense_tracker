@@ -10,31 +10,33 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   border: none;
-  padding: 8px 12px;
-  width: 100%;
+  padding: 17px 12px;
+  width: 330px;
   border-radius: 4px;
-  font-size: 16px;
-  background-color: #fff;
+  // font-size: 16px;
+  background-color: #671a740f;
   color: #333;
   cursor: pointer;
   padding-right: 35px;
+  margin: 10px;
+  margin-top: 6px;
 }
 
 
 
 .custom-select-wrapper::after {
   content: "▼";
-  font-size: 12px;
+  font-size: 10px;
   color: #000000;
-  background-color: #dfdfdf;
+  // background-color: #dfdfdf;
   border-radius: 12px;
   position: absolute;
-  top: 50%;
-  right: -47%;
+  top: 48%;
+  right: -62%;
   transform: translateY(-50%);
   pointer-events: none;
-  width: 40px;
-  height: 40px;
+  // width: 40px;
+  // height: 40px;
   line-height: 40px;
 }
 

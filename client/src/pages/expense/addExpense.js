@@ -8,7 +8,7 @@ import { Link } from "react-router"
 import Toast from "../../components/Toast"
 
 const AddExpense = () => {
-    const [selectedValue, setSelectedValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState("Tea & Snacks");
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
     const expenseTypeData = [
@@ -27,7 +27,7 @@ const AddExpense = () => {
     const [defaults, setDefaults] = useState({
         amount: '',
         description: '',
-        expenseType: 'Others',
+        expenseType: 'Tea & Snacks',
         icon: ''
     })
     const { amount, description } = defaults
@@ -81,7 +81,7 @@ const AddExpense = () => {
                         <SelectList
                             options={expenseTypeData}
                             onChange={handlerSelectList}
-                            placeholder="- Select -"
+                            // placeholder="- Select -"
                             value={selectedValue}
                         />
                     </div>

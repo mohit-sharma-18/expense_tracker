@@ -12,15 +12,14 @@
     input:focus {
         border: none;
         outline: none;
-        border-bottom: 2px solid $black;
     }
 
     .description,
     .inputAmount {
-        background: none;
-        border-bottom: 2px solid #000000;
-        border-radius: unset;
-        padding: 5px 0px;
+        // background: none;
+        // border-bottom: 2px solid #000000;
+        // border-radius: unset;
+        // padding: 5px 0px;
     }
 
     .textBox {
@@ -29,6 +28,9 @@
             justify-content: center;
             align-items: baseline;
             flex-direction: column-reverse;
+            input{
+                width: 330px;
+            }
         }
     }
 }
