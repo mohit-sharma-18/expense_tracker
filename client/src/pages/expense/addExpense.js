@@ -75,7 +75,7 @@ const AddExpense = () => {
                 <div className="clearfix"></div>
                 < Header backBtn={true} name="Add Expense" />
                 <form onSubmit={handleSubmit}>
-                    <TextBox type="number" label="Amount" name="amount" value={amount} placeHolder="Enter Amount" className="inputAmount" onChange={handlerChange} />
+                    <TextBox type="number" label="Amount" name="amount" value={amount} placeholder="Enter an amount" className="inputAmount" onChange={handlerChange} />
                     <div className="selectListCon">
                         <p>Expenses made for</p>
                         <SelectList
@@ -86,7 +86,7 @@ const AddExpense = () => {
                         />
                     </div>
                     <div>
-                        <TextBox type="text" name="description" label="Description" value={description} className="description" onChange={handlerChange} />
+                        <TextBox type="text" name="description" label="Description" value={description} className="description" placeholder="Add a comment" onChange={handlerChange} />
                     </div>
                     <div className="clearfix"></div>
                     <div className="btn">

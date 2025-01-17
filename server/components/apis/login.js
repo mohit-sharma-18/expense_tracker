@@ -5,7 +5,6 @@ const sendErrorResponse = require('./toastResponse.js')
 
 router.use(express.json())
 router.post('/', (req, res) => {
-    console.log('req', req.body);
     const { email, password } = req.body
     db.query('select * from admindata.users where email = $1 AND password = $2', [email, password], (err, result) => {
         if (err) {

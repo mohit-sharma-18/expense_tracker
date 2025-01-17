@@ -81,7 +81,7 @@ const Signup = () => {
                                 <TextBox name="confirmPass" className="confirmPass" placeholder="Confirm Password" value={confirmPass} onChange={handlerInput}></TextBox>
                             </div>
                             <div className="btn">
-                                <Button type="submit" name="Sign Up" className="primary" style={{ width: "285px" }}></Button>
+                                <Button type="submit" name="Sign Up" className="primary" style={{ width: "300px" }}></Button>
                                 <Link to='/login'> <Button name="Already have an account" className="secondary createBtn" style={{ width: "285px" }}></Button></Link>
                             </div>
                         </form>
