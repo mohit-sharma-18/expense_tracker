@@ -1,5 +1,5 @@
 import 'font-awesome/css/font-awesome.min.css';
-import { useEffect, useState } from 'react';
+import { act, useEffect, useState } from 'react';
 import ExpenseList from '../../components/ExpenseList';
 import Header from '../../components/Header';
 import { Link } from 'react-router-dom'
@@ -13,6 +13,7 @@ const Home = (props) => {
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
     const [loader, setLoader] = useState(true)
+    const [activeCls, setActiveCls] = useState("todayDate")
     const [defaults, setDefaults] = useState({
         totalSum: '0',
         day: '',
@@ -25,8 +26,6 @@ const Home = (props) => {
         })
     }, [])
 
-    console.log('apidata', apiData);
-
     useEffect((e) => {
         if (apiData.length > 0) {
             apiData.filter((e) => {
@@ -36,6 +35,9 @@ const Home = (props) => {
                 }))
             })
         }
+        else setDefaults(prev => ({
+            ...prev, totalSum: "0"
+        }))
     }, [apiData])
 
     //i will handle state later with redux or contxt
@@ -49,10 +51,23 @@ const Home = (props) => {
         return (() => clearTimeout(timeout))
     }, [showToast])
 
+    const handleDate = (e) => {
+        e.target.getAttribute('value') === 'todayDate'
+            ? setActiveCls('todayDate')
+            : e.target.getAttribute('value') === 'last7Days'
+                ? setActiveCls('last7Days')
+                : setActiveCls('last30Days')
+    }
+    useEffect(() => {
+        callApi(`/home?date=${activeCls}`, 'GET', null, setLoader).then((data) => {
+            setApiData(data)
+        })
+    }, [activeCls])
+
     const { totalSum, day, password, confirmPass } = defaults
-    return ( 
+    return (
         <>
-            {loader && <Loader loaderMsg="Loading"/>}
+            {loader && <Loader loaderMsg="Loading" />}
             <div className="home_comp">
                 <div className="container">
                     {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
@@ -67,6 +82,11 @@ const Home = (props) => {
                     <div className="expenseDetails">
                         <div className="allExpense">All Expenses {apiData.length > 0 ? `(${apiData.length - 1})` : '(0)'}</div>
                         <div className="viewAll">View All</div>
+                    </div>
+                    <div className="dateTimeContainer">
+                        <div className={`todayDate ${activeCls == "todayDate" ? 'active' : ''}`} value="todayDate" onClick={handleDate}>Today</div>
+                        <div className={`last7Days ${activeCls == "last7Days" ? 'active' : ''}`} value="last7Days" onClick={handleDate}>Last 7 Days</div>
+                        <div className={`last30Days ${activeCls == "last30Days" ? 'active' : ''}`} value="last30Days" onClick={handleDate}>Last Month</div>
                     </div>
                     <div className="expenseDay">
                         <div className="day">{day}</div>

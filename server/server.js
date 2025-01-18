@@ -32,7 +32,7 @@ app.use(
             secure: process.env.node_env === 'production',
             httpOnly: true,
             maxAge: 3600000,
-            sameSite:'none'
+            sameSite: process.env.node_env === 'production' ? 'none' : 'lax'
         }
     })
 );

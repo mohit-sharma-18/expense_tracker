@@ -2,6 +2,8 @@ const apiUrl = process.env.REACT_APP_API_URL
 console.log('apiUrl', apiUrl);
 
 const callApi = (apiPath, apiMethod, apibody, setLoader) => {
+    console.log('apiPath', apiPath);
+    
     if (setLoader) setLoader(true)
     return fetch(apiUrl + apiPath, {
         method: apiMethod,

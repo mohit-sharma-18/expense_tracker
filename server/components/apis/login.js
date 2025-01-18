@@ -16,6 +16,8 @@ router.post('/', (req, res) => {
         }
         if (email === result.rows[0].email) {
             req.session.user = { email }
+            console.log('email',email , 'req.session.user', req.session.user);
+            
             return res.json({ "resPath": "/home", "auth": true })
         }
         sendErrorResponse(res, "Error", "Invalid login/password")

@@ -17,10 +17,10 @@ const AddExpense = () => {
         { value: "Vehicle", label: "Vehicle", icon: "fa-car" },
         { value: "Food", label: "Food", icon: "fa-cutlery" },
         { value: "Gift", label: "Gift", icon: "fa-gift" },
-        { value: "Online Shopping", label: "Online Shopping", icon: "fa-cart-shopping" },
+        { value: "Online Shopping", label: "Online Shopping", icon: "fa-shopping-cart" },
         { value: "Subscription", label: "Subscription", icon: "fa-film" },
         { value: "Cab", label: "Cab", icon: "fa-car" },
-        { value: "Shopping", label: "Shopping", icon: "fa-shopping-basket" },
+        { value: "Shopping", label: "Shopping", icon: "fa-shopping-cart" },
         { value: "Recharge/Bill", label: "Recharge/Bill", icon: "fa-file" },
         { value: "Others", label: "Others", icon: "fa-random" },
     ];

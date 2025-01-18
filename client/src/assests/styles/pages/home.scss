@@ -10,9 +10,37 @@
         padding: 12px 0;
     }
 
+    .dateTimeContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 9px 0px;
+        width: 100%;
+
+        div {
+            border: 1px solid grey;
+            padding: 5px 7px;
+            font-weight: 500;
+            color: #1e1e1e;
+            width: 117px;
+            cursor: pointer;
+        }
+
+        .last7Days {
+            border-left: none;
+            border-right: none;
+        }
+
+        .active {
+            background: $primary_color;
+            color: $white;
+        }
+    }
+
     .noDataFoundContainer {
         display: grid;
         justify-items: center;
+
         .noDataFound {
             color: $primary_color;
             font-weight: bolder;
