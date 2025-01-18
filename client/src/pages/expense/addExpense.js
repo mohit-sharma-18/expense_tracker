@@ -90,8 +90,8 @@ const AddExpense = () => {
                     </div>
                     <div className="clearfix"></div>
                     <div className="btn">
-                        <Button type="submit" name="Save" className="primary" style={{ width: "285px" }}></Button>
-                        <Link to="/home"> <Button name="Cancel" className="secondary createBtn" style={{ width: "285px" }}></Button></Link>
+                        <Button type="submit" name="Save" className="primary" style={{ width: "325px" }}></Button>
+                        <Link to="/home"> <Button name="Cancel" className="secondary createBtn" style={{ width: "325px" }}></Button></Link>
                     </div>
                 </form>
             </div>

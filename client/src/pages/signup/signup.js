@@ -2,7 +2,7 @@ import TextBox from '../../components/TextBox'
 import logo from '../../images/logo.png'
 import Button from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Toast from '../../components/Toast'
 import callApi from '../../utility/callApi'
 import Loader from '../../components/Loader'
@@ -68,7 +68,7 @@ const Signup = () => {
                     </div>
                     <div className="signUpDetails">
                         <h1>
-                            Create Account
+                            Create an account
                         </h1>
                         <p>Create an account so you can explore all the features</p>
                     </div>
@@ -81,8 +81,8 @@ const Signup = () => {
                                 <TextBox name="confirmPass" className="confirmPass" placeholder="Confirm Password" value={confirmPass} onChange={handlerInput}></TextBox>
                             </div>
                             <div className="btn">
-                                <Button type="submit" name="Sign Up" className="primary" style={{ width: "300px" }}></Button>
-                                <Link to='/login'> <Button name="Already have an account" className="secondary createBtn" style={{ width: "285px" }}></Button></Link>
+                                <Button type="submit" name="Sign Up" className="primary" style={{ width: "325px" }}></Button>
+                                <Link to='/login'> <Button name="Already have an account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link>
                             </div>
                         </form>
                     </div>

@@ -71,8 +71,8 @@ const Login = () => {
                                 <div className='forgotPass'><a href='#' >Forgot your password?</a></div>
                             </div>
                             <div className="btn">
-                                <Button type="submit" name="Sign in" className="primary" style={{ width: "300px" }}></Button>
-                                <Link to="/signup"> <Button name="Create new account" className="secondary createBtn" style={{ width: "285px" }}></Button></Link>
+                                <Button type="submit" name="Sign in" className="primary" style={{ width: "325px" }}></Button>
+                                <Link to="/signup"> <Button name="Create new account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link>
                             </div>
                         </form>
                     </div>
