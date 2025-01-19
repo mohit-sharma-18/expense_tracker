@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import Header from "./Header"
 import callApi from "../utility/callApi"
 const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
     const [apiData, setApiData] = useState([])
+    const [loader, setLoader] = useState(true)
     const [defaults, setDefaults] = useState({
         username: ''
     })
 
     useEffect(() => {
-        callApi('/userProfile', 'GET', null).then((data) => {
+        callApi('/userProfile', 'GET', null,setLoader).then((data) => {
             console.log('data', data[0].username)
             setApiData(data)
             setDefaults(prev => ({
@@ -23,10 +23,16 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
             <div className="userProfileComp">
                 <div className="overlay" onClick={overlayHandle}></div>
                 <div className={`sideBarContainer ${openSidebar ? 'open' : ''}`}>
-                    < Header dots={true} name="User Profile" />
                     <div className="userDetails">
-                        <p className="username"> <i className="fa fa-user"></i>{defaults.username}</p>
-                        <p className="signOut" onClick={onClick}> <i className="fa fa-sign-out"></i>Sign Out</p>
+                        <div className="profile">
+                            <i className="fa fa-user"></i>
+                            <p className="username"> {defaults.username}</p>
+                        </div>
+                        <div className="otherDetails">
+                            <ul>
+                                <li><p className="signOut" onClick={onClick}> <i className="fa fa-sign-out"></i>Logout</p></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
         position: fixed;
         pointer-events: auto;
         background-color: $black;
-        opacity: 0.2;
+        opacity: 0.3;
         height: 100%;
         width: 100%;
     }
@@ -18,8 +18,38 @@
         font-size: 12px;
         font-weight: 500;
 
-        .username {
-            border-bottom: 1px solid $grey;
+
+        .profile {
+            height: 94px;
+            background: #7925a9;
+            color: #ffff;
+            padding: 10px 8px;
+
+            .username {
+                font-size: 16px;
+            }
+
+            i.fa.fa-user {
+                font-size: 24px;
+                background: $white;
+                border-radius: 50%;
+                display: inline-block;
+                padding: 7px 12px;
+                color: $primary_color;
+                margin: 5px;
+            }
+        }
+
+        .otherDetails {
+            p.signOut {
+                font-size: 14px;
+            }
+            ul{
+                li{
+                    padding: 5px 3px;
+                    list-style: none;
+                }
+            }
         }
 
         p {
@@ -41,6 +71,7 @@
     }
 
     .sideBarContainer.open {
-        transform: translateX(50%);
+        transform: translateX(0%);
+        width: 190px;
     }
 }
