@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import callApi from "../utility/callApi"
+import Loader from "./Loader"
 const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
     const [apiData, setApiData] = useState([])
     const [loader, setLoader] = useState(true)
@@ -8,7 +9,7 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
     })
 
     useEffect(() => {
-        callApi('/userProfile', 'GET', null,setLoader).then((data) => {
+        callApi('/userProfile', 'GET', null, setLoader).then((data) => {
             console.log('data', data[0].username)
             setApiData(data)
             setDefaults(prev => ({
@@ -23,6 +24,7 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
             <div className="userProfileComp">
                 <div className="overlay" onClick={overlayHandle}></div>
                 <div className={`sideBarContainer ${openSidebar ? 'open' : ''}`}>
+                    {loader && <Loader loaderMsg="Loading" />}
                     <div className="userDetails">
                         <div className="profile">
                             <i className="fa fa-user"></i>
