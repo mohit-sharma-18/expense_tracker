@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom'
 import callApi from '../../utility/callApi';
 import Toast from '../../components/Toast';
 import noDataFoundImage from '../../images/nodatauser.png'
-import Loader from '../../components/Loader'
+import Loader from '../../components/Loader';
+import UserProfile from '../../components/userProfile';
 
 const Home = (props) => {
 
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
     const [loader, setLoader] = useState(true)
+    const [sideBarFlag, setSideBarFlag] = useState(false)
+    const [showSignOut, setShowSignOut] = useState(false)
     const [activeCls, setActiveCls] = useState("todayDate")
     const [defaults, setDefaults] = useState({
         totalSum: '0',
@@ -64,15 +67,23 @@ const Home = (props) => {
         })
     }, [activeCls])
 
+    const handleUserData = (data) => {
+        setSideBarFlag(true)
+    }
+    const handlersideBar = (data) => {
+        setSideBarFlag(!sideBarFlag)
+    }
+
     const { totalSum, day, password, confirmPass } = defaults
     return (
         <>
             {loader && <Loader loaderMsg="Loading" />}
+            {sideBarFlag && <UserProfile openSidebar={sideBarFlag} overlayHandle={handlersideBar} />}
             <div className="home_comp">
                 <div className="container">
                     {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                     <div className="clearfix"></div>
-                    < Header dots={true} name="Dashboard" userProfile={true} />
+                    < Header dots={true} name="Dashboard" userProfile={true} sideBarFlagData={handleUserData} />
                     <div className="clearfix"></div>
                     <div className="expenseContainer">
                         <div className="totalMoney"> <span className="rupess">&#x20b9;</span> {totalSum}</div>

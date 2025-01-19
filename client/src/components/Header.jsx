@@ -1,5 +1,10 @@
 import 'font-awesome/css/font-awesome.min.css';
-const Header = ({ name, dots, backBtn, userProfile }) => {
+import { useState } from 'react';
+const Header = ({ name, dots, backBtn, userProfile, sideBarFlagData }) => {
+    const [sideBarFlag, setSideBarFlag] = useState(false)
+    const handleUser = () => {
+        sideBarFlagData(true)
+    }
     return <>
         <div className="header_comp">
             <div className="headerContainer">
@@ -20,7 +25,7 @@ const Header = ({ name, dots, backBtn, userProfile }) => {
                     <p className='dashboard'>{name}</p>
                 </div>
                 <div className="right">
-                    {userProfile && <i className='fa fa-user'></i>}
+                    {userProfile && <i className='fa fa-user' onClick={handleUser}></i>}
                 </div>
             </div>
         </div>

@@ -1,0 +1,46 @@
+@import '../abstracts/variables.scss';
+
+.userProfileComp {
+    display: flex;
+    justify-content: center;
+
+    .overlay {
+        position: fixed;
+        pointer-events: auto;
+        background-color: $black;
+        opacity: 0.2;
+        height: 100%;
+        width: 100%;
+    }
+
+    .userDetails {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 500;
+
+        .username {
+            border-bottom: 1px solid $grey;
+        }
+
+        p {
+            padding: 2px 0px;
+
+            i {
+                padding: 0px 5px
+            }
+        }
+    }
+
+    .sideBarContainer {
+        position: fixed;
+        right: 0;
+        height: 100%;
+        background-color: $white;
+        transform: translateX(100%);
+        transition: tranform .3s ease;
+    }
+
+    .sideBarContainer.open {
+        transform: translateX(50%);
+    }
+}
