@@ -28,7 +28,7 @@ const AddExpense = () => {
         amount: '',
         description: '',
         expenseType: 'Tea & Snacks',
-        icon: ''
+        icon: 'fa-coffee'
     })
     const { amount, description } = defaults
     const handlerChange = (e) => {
