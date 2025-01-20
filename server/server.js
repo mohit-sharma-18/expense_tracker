@@ -6,6 +6,7 @@ const login = require('./components/apis/login.js')
 const addExpense = require('./components/apis/addExpense.js')
 const home = require('./components/apis/home.js')
 const userProfile = require('./components/apis/userProfile.js')
+const logout = require('./components/apis/logout.js')
 require('dotenv').config()
 const cors = require('cors')
 const port = 5000
@@ -43,6 +44,7 @@ app.use('/login', login)
 app.use('/addExpense', addExpense)
 app.use('/home', home)
 app.use('/userProfile', userProfile)
+app.use('/logout', logout)
 
 app.get('/connection', async (req, res) => {
     try {
