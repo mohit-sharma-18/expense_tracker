@@ -11,6 +11,7 @@
         opacity: 0.3;
         height: 100%;
         width: 100%;
+        animation: overlayKey .2s ease;
     }
 
     .userDetails {
@@ -68,11 +69,33 @@
         height: 100%;
         background-color: $white;
         transform: translateX(100%);
-        transition: tranform .3s ease;
+        transition: transform .4s ease;
+        width: 0px;
+        animation: sidebarKey .5s ease;
     }
 
     .sideBarContainer.open {
         transform: translateX(0%);
         width: 190px;
+    }
+}
+
+@keyframes sidebarKey {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 190px;
+    }
+}
+
+@keyframes overlayKey {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.3;
     }
 }

@@ -2,7 +2,13 @@
 
 .custom-select-wrapper {
   position: relative;
-  width: 200px;
+  width: 320px;
+
+  i {
+    position: absolute;
+    top: 22px;
+    right: 0;
+  }
 }
 
 .custom-select {
@@ -24,21 +30,21 @@
 
 
 
-.custom-select-wrapper::after {
-  content: "▼";
-  font-size: 10px;
-  color: #000000;
-  // background-color: #dfdfdf;
-  border-radius: 12px;
-  position: absolute;
-  top: 48%;
-  right: -62%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  // width: 40px;
-  // height: 40px;
-  line-height: 40px;
-}
+// .custom-select-wrapper::after {
+//   content: "▼";
+//   font-size: 10px;
+//   color: #000000;
+//   // background-color: #dfdfdf;
+//   border-radius: 12px;
+//   position: absolute;
+//   top: 48%;
+//   right: -62%;
+//   transform: translateY(-50%);
+//   pointer-events: none;
+//   // width: 40px;
+//   // height: 40px;
+//   line-height: 40px;
+// }
 
 .custom-select:hover,
 .custom-select:focus {

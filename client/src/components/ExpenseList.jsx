@@ -25,6 +25,10 @@ const ExpenseList = (props) => {
                                         <p className="expense"> <span className="rupess">&#x20b9;</span>{data.amount}</p>
                                     </div>
                                 </div>
+                                {/* <div className="actionBtns">
+                                    <i className="fa fa-pencil"></i>
+                                    <i className="fa fa-trash"></i>
+                                </div> */}
                             </li>
                         })}
 
