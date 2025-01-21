@@ -64,7 +64,7 @@ router.delete('/', (req, res) => {
             console.log('Error while updating data ' + err)
             return sendErrorResponse(res, 'Error', "Error while deleting data!")
         }
-        return sendErrorResponse(res.status(200), 'Success', "Deleted successfully")
+        return sendErrorResponse(res.status(200), 'Success', "Expense Deleted successfully")
     })
 })
 
