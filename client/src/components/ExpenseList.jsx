@@ -4,10 +4,10 @@ const ExpenseList = (props) => {
     const { apiData } = props
     console.log('api', apiData);
 
-
     const handlerDelete = () => {
-
+   
     }
+
     return (
         <>
             <div className="expenseList_comp">
