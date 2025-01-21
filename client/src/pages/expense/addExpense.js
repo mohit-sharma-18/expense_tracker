@@ -7,12 +7,14 @@ import Button from "../../components/Button"
 import { Link } from "react-router"
 import Toast from "../../components/Toast"
 import { useSearchParams } from "react-router"
+import Loader from "../../components/Loader"
 
 const AddExpense = () => {
     const [params] = useSearchParams()
     const [selectedValue, setSelectedValue] = useState("Tea & Snacks");
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
+    const [loader, setLoader] = useState(true)
     const editID = params.get('editID')
     const expenseTypeData = [
         { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
@@ -37,7 +39,7 @@ const AddExpense = () => {
 
     useEffect(() => {
         if (editID)
-            callApi(`/addExpense?editID=${editID}`, 'GET', null).then((data) => {
+            callApi(`/addExpense?editID=${editID}`, 'GET', null, setLoader).then((data) => {
                 setDefaults((prev) => ({
                     ...prev,
                     amount: data[0].amount,
@@ -46,7 +48,6 @@ const AddExpense = () => {
                     icon: data[0].icon
                 }))
                 console.log(data[0], defaults);
-
             })
         return
     }, [])
@@ -94,6 +95,7 @@ const AddExpense = () => {
     }, [showToast])
 
     return <>
+        {loader && <Loader loaderMsg="Loading" />}
         <div className="addExpense_comp">
             <div className="addExpenseContainer">
                 {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
