@@ -65,13 +65,17 @@ const Home = (props) => {
         callApi(`/home?date=${activeCls}`, 'GET', null, setLoader).then((data) => {
             setApiData(data)
         })
-    }, [activeCls])
+    }, [activeCls, showToast])
 
     const handleUserData = (data) => {
         setSideBarFlag(true)
     }
     const handlersideBar = (data) => {
         setSideBarFlag(!sideBarFlag)
+    }
+    const handleGetData = (data) => {
+        setApiData(data)
+        setShowToast(true)
     }
 
     const { totalSum, day, password, confirmPass } = defaults
@@ -105,7 +109,7 @@ const Home = (props) => {
                     {/* <div className="clearfix"></div> */}
                     {apiData.length > 0 ?
                         <div className="expenseList">
-                            <ExpenseList apiData={apiData} />
+                            <ExpenseList apiData={apiData} onSendData={handleGetData} />
                         </div>
                         :
                         <div className='noDataFoundContainer'> <div className="clearfix"></div>

@@ -56,4 +56,16 @@ router.post('/', (req, res) => {
     })
 })
 
+router.delete('/', (req, res) => {
+    const deleteID = req.query.deleteID
+    db.query(`DELETE FROM ADMINDATA.EXPENSE_SUMMARY
+        where id= $1`, [deleteID], (err, result) => {
+        if (err) {
+            console.log('Error while updating data ' + err)
+            return sendErrorResponse(res, 'Error', "Error while deleting data!")
+        }
+        return sendErrorResponse(res.status(200), 'Success', "Deleted successfully")
+    })
+})
+
 module.exports = router
