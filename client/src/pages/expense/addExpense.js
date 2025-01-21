@@ -14,7 +14,7 @@ const AddExpense = () => {
     const [selectedValue, setSelectedValue] = useState("Tea & Snacks");
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
-    const [loader, setLoader] = useState(true)
+    const [loader, setLoader] = useState(false)
     const editID = params.get('editID')
     const expenseTypeData = [
         { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
@@ -38,7 +38,8 @@ const AddExpense = () => {
     const { amount, description, expenseType, icon } = defaults
 
     useEffect(() => {
-        if (editID)
+        if (editID) {
+            setLoader(true)
             callApi(`/addExpense?editID=${editID}`, 'GET', null, setLoader).then((data) => {
                 setDefaults((prev) => ({
                     ...prev,
@@ -47,8 +48,8 @@ const AddExpense = () => {
                     expenseType: data[0].expensetype,
                     icon: data[0].icon
                 }))
-                console.log(data[0], defaults);
             })
+        }
         return
     }, [])
     const handlerChange = (e) => {
