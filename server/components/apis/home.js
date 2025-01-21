@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     console.log('dateTime', dateTime);
 
     db.query(`with temp_data as(
-                    select INITCAP(expense_type) as expense_type ,description,amount ,icon
+                    select id::text as id, INITCAP(expense_type) as expense_type ,description,amount ,icon
                     from admindata.expense_summary 
                     where email = $1
                     AND
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
                     order by created_at desc
                 ),
             temp_total as(
-                    select 'Total' as expense_type, ' ' as description, sum(amount) as amount ,' ' as icon
+                    select ' ' as id,'Total' as expense_type, ' ' as description, sum(amount) as amount ,' ' as icon
                     from admindata.expense_summary
                     where email = $1
                      AND

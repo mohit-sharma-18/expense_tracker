@@ -5,6 +5,37 @@ const sendErrorResponse = require('./toastResponse')
 
 router.use(express.json())
 
+router.get('/', (req, res) => {
+    const editID = req.query.editID
+    // const user = req.session.user
+    db.query(`SELECT amount as amount,expense_type as expenseType,description as description , icon
+        from admindata.expense_summary where id = $1`, [editID], (err, result) => {
+        if (err) {
+            console.log(err);
+            sendErrorResponse(res, 'Error', "Error while fetching data!")
+        }
+        if (result.rows.length > 0) {
+            console.log('result--', result.rows);
+            return res.send(result.rows)
+        }
+        return sendErrorResponse(res, 'Warning', 'No data found')
+    })
+})
+
+router.put('/', (req, res) => {
+    const { amount, description, expenseType, icon } = req.body
+    const editID = req.query.editID
+    db.query(`UPDATE ADMINDATA.EXPENSE_SUMMARY
+        SET AMOUNT = $1, DESCRIPTION = $2, EXPENSE_TYPE = $3, ICON = $4
+        where id= $5`, [amount, description, expenseType, icon, editID], (err, result) => {
+        if (err) {
+            console.log('Error while updating data ' + err)
+            return sendErrorResponse(res, 'Error', "Error while updating data!")
+        }
+        return sendErrorResponse(res.status(200), 'Success', "Updated successfully.")
+    })
+})
+
 router.post('/', (req, res) => {
     const { amount, description, expenseType, icon } = req.body
     if (!req.session.user) {

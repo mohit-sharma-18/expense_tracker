@@ -1,8 +1,13 @@
+import { useState } from 'react';
+import { data, Link } from 'react-router-dom'
 const ExpenseList = (props) => {
-    // const { listHeader, listPara, expense, icon } = props
     const { apiData } = props
     console.log('api', apiData);
 
+
+    const handlerDelete = () => {
+
+    }
     return (
         <>
             <div className="expenseList_comp">
@@ -25,10 +30,10 @@ const ExpenseList = (props) => {
                                         <p className="expense"> <span className="rupess">&#x20b9;</span>{data.amount}</p>
                                     </div>
                                 </div>
-                                {/* <div className="actionBtns">
-                                    <i className="fa fa-pencil"></i>
-                                    <i className="fa fa-trash"></i>
-                                </div> */}
+                                <div className="actionBtns">
+                                    <Link to={`/addExpense?editID=${data.id}`}> <i className="fa fa-pencil" data-value={data.id}></i></Link>
+                                    <i className="fa fa-trash" data-value={data.id} onClick={handlerDelete}></i>
+                                </div>
                             </li>
                         })}
 

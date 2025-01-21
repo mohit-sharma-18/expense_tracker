@@ -6,11 +6,14 @@ import callApi from "../../utility/callApi"
 import Button from "../../components/Button"
 import { Link } from "react-router"
 import Toast from "../../components/Toast"
+import { useSearchParams } from "react-router"
 
 const AddExpense = () => {
+    const [params] = useSearchParams()
     const [selectedValue, setSelectedValue] = useState("Tea & Snacks");
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
+    const editID = params.get('editID')
     const expenseTypeData = [
         { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
         { value: "Grocery", label: "Grocery", icon: "fa-shopping-basket" },
@@ -30,14 +33,29 @@ const AddExpense = () => {
         expenseType: 'Tea & Snacks',
         icon: 'fa-coffee'
     })
-    const { amount, description } = defaults
+    const { amount, description, expenseType, icon } = defaults
+
+    useEffect(() => {
+        if (editID)
+            callApi(`/addExpense?editID=${editID}`, 'GET', null).then((data) => {
+                setDefaults((prev) => ({
+                    ...prev,
+                    amount: data[0].amount,
+                    description: data[0].description,
+                    expenseType: data[0].expensetype,
+                    icon: data[0].icon
+                }))
+                console.log(data[0], defaults);
+
+            })
+        return
+    }, [])
     const handlerChange = (e) => {
         const { name, value } = e.target
         setDefaults((prev) => ({
             ...prev, [name]: value
         }))
     }
-
 
 
     const handlerSelectList = (e) => {
@@ -52,6 +70,13 @@ const AddExpense = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (editID) {
+            callApi(`/addExpense?editID=${editID}`, 'PUT', defaults).then((data) => {
+                setApiData(data)
+                setShowToast(true)
+            })
+            return
+        }
         callApi('/addExpense', 'POST', defaults).then((data) => {
             setApiData(data)
             setShowToast(true)
@@ -82,7 +107,7 @@ const AddExpense = () => {
                             options={expenseTypeData}
                             onChange={handlerSelectList}
                             // placeholder="- Select -"
-                            value={selectedValue}
+                            value={expenseType}
                         />
                     </div>
                     <div>
@@ -90,7 +115,7 @@ const AddExpense = () => {
                     </div>
                     <div className="clearfix"></div>
                     <div className="btn">
-                        <Button type="submit" name="Save" className="primary" style={{ width: "325px" }}></Button>
+                        <Button type="submit" name={editID ? "Update" : "Save"} className="primary" style={{ width: "325px" }}></Button>
                         <Link to="/home"> <Button name="Cancel" className="secondary createBtn" style={{ width: "325px" }}></Button></Link>
                     </div>
                 </form>
