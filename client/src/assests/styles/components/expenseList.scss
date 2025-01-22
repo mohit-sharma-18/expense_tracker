@@ -58,10 +58,14 @@
             .icon {
                 background-color: $primary_color;
                 color: $white;
-                padding: 8px 8px;
                 border-radius: 12px;
                 width: 38px;
-                i{
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                i {
                     font-size: 18px;
                 }
             }
