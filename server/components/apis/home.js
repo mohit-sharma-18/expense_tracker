@@ -51,7 +51,8 @@ router.get('/', (req, res) => {
                      WHEN $2 ='last30Days' THEN CREATED_AT >= CURRENT_DATE - INTERVAL '30 days'
                     else true
                     end
-                    ))`, [email, dateTime], (err, result) => {
+                    )
+                    AND email=$1)`, [email, dateTime], (err, result) => {
         console.log('result', result.rows);
         if (err) {
             console.log('error while fetching data' + err);

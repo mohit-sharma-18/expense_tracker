@@ -18,16 +18,21 @@ const Signup = () => {
         confirmPass: '',
     })
     const [apiData, setApiData] = useState([])
+    const [fieldError, setFieldError] = useState({})
 
     const { username, email, password, confirmPass } = defaults
 
     const handlerSubmit = (e) => {
-        setLoader(true)
         e.preventDefault()
-        callApi('/signup', 'POST', defaults,setLoader).then((data) => {
-            setApiData(data)
-            setShowToast(true)
-        })
+        if (validate()) {
+            setLoader(true)
+            callApi('/signup', 'POST', defaults, setLoader).then((data) => {
+                setApiData(data)
+                setShowToast(true)
+            })
+        }
+        return
+
     }
     const handlerInput = (e) => {
         const { name, value } = e.target
@@ -44,9 +49,9 @@ const Signup = () => {
         }
 
     }, [apiData])
-    
-     //i will handle state later with redux or contxt
-     useEffect((e) => {
+
+    //i will handle state later with redux or contxt
+    useEffect((e) => {
         let timeout;
         if (showToast) {
             timeout = setTimeout(() => {
@@ -56,10 +61,28 @@ const Signup = () => {
         return (() => clearTimeout(timeout))
     }, [showToast])
 
+    const validate = () => {
+        let errors = {}
+        for (let key in defaults) {
+            if (defaults[key].trim().length < 1) {
+                errors[key] = 'error'
+            }
+            else if (!/\S+@\S+\.\S+/.test(defaults.email)) {
+                errors.email = 'error'
+            }
+            else if (defaults.password !== defaults.confirmPass) {
+                errors.password = 'error'
+                errors.confirmPass = 'error'
+            }
+        }
+        setFieldError(errors)
+        return Object.entries(errors).length > 0 ? false : true
+    }
+
     return (
 
         <>
-         {loader && <Loader loaderMsg="Please wait while we finish setting up your account" />}
+            {loader && <Loader loaderMsg="Please wait while we finish setting up your account" />}
             <div className="signup_comp">
                 {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                 <div className="header">
@@ -75,10 +98,10 @@ const Signup = () => {
                     <div className="formDetails">
                         <form onSubmit={handlerSubmit}>
                             <div className="formElements">
-                                <TextBox name="username" placeholder="Username" value={username} onChange={handlerInput}></TextBox>
-                                <TextBox name="email" placeholder="Email" value={email} onChange={handlerInput}></TextBox>
-                                <TextBox name="password" placeholder="Password" value={password} onChange={handlerInput}></TextBox>
-                                <TextBox name="confirmPass" className="confirmPass" placeholder="Confirm Password" value={confirmPass} onChange={handlerInput}></TextBox>
+                                <TextBox id="username" name="username" className={`username ${fieldError.username ? 'error' : ''}`} placeholder="Username" value={username} onChange={handlerInput}></TextBox>
+                                <TextBox id="email" name="email" className={`email ${fieldError.email ? 'error' : ''}`} placeholder="Email" value={email} onChange={handlerInput}></TextBox>
+                                <TextBox id="password" name="password" className={`password  ${fieldError.password ? 'error' : ''}`} placeholder="Password" value={password} onChange={handlerInput}></TextBox>
+                                <TextBox id="confrimPass" name="confirmPass" className={`confirmPass  ${fieldError.confirmPass ? 'error' : ''}`} placeholder="Confirm Password" value={confirmPass} onChange={handlerInput}></TextBox>
                             </div>
                             <div className="btn">
                                 <Button type="submit" name="Sign Up" className="primary" style={{ width: "325px" }}></Button>
