@@ -5,7 +5,7 @@ const sendErrorResponse = require('./toastResponse')
 
 router.get('/', (req, res) => {
     const { email } = req.session.user
-    db.query('SELECT USERNAME FROM ADMINDATA.USERS WHERE EMAIL = $1', [email], (err, result) => {
+    db.query('SELECT USERNAME FROM ADMINDATA.USERS WHERE upper(EMAIL) = upper($1)', [email], (err, result) => {
         if (err) {
             console.log('Error while fetching data ' + err);
             return sendErrorResponse(res, "Error", "An error occured while fetching data !")

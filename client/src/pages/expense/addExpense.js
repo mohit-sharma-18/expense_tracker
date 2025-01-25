@@ -4,7 +4,7 @@ import TextBox from "../../components/TextBox"
 import SelectList from "../../components/SelectList"
 import callApi from "../../utility/callApi"
 import Button from "../../components/Button"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import Toast from "../../components/Toast"
 import { useSearchParams } from "react-router"
 import Loader from "../../components/Loader"
@@ -15,6 +15,7 @@ const AddExpense = () => {
     const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
     const [loader, setLoader] = useState(false)
+    const [fieldError, setFieldError] = useState({})
     const editID = params.get('editID')
     const expenseTypeData = [
         { value: "Tea & Snacks", label: "Tea & Snacks", icon: "fa-coffee" },
@@ -36,6 +37,8 @@ const AddExpense = () => {
         icon: 'fa-coffee'
     })
     const { amount, description, expenseType, icon } = defaults
+    const Navigate = useNavigate()
+
 
     useEffect(() => {
         if (editID) {
@@ -72,17 +75,32 @@ const AddExpense = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (editID) {
-            callApi(`/addExpense?editID=${editID}`, 'PUT', defaults).then((data) => {
+        if (validate()) {
+            if (editID) {
+                callApi(`/addExpense?editID=${editID}`, 'PUT', defaults).then((data) => {
+                    setApiData(data)
+                    setShowToast(true)
+                })
+                return
+            }
+
+            callApi('/addExpense', 'POST', defaults).then((data) => {
+                if (data?.auth == false) {
+                    setApiData(data)
+                    setShowToast(true)
+                    setTimeout(() => {
+                        return Navigate('/login')
+                    }, 2500);
+                }
                 setApiData(data)
                 setShowToast(true)
+                setDefaults((prev) => ({
+                    ...prev,
+                    amount: '',
+                    description: '',
+                }))
             })
-            return
         }
-        callApi('/addExpense', 'POST', defaults).then((data) => {
-            setApiData(data)
-            setShowToast(true)
-        })
     }
     //i will handle state later with redux or contxt
     useEffect((e) => {
@@ -95,6 +113,16 @@ const AddExpense = () => {
         return (() => clearTimeout(timeout))
     }, [showToast])
 
+    const validate = () => {
+        let errors = {}
+        for (let key in defaults) {
+            if (defaults[key].trim().length < 1) {
+                errors[key] = 'error'
+            }
+        }
+        setFieldError(errors)
+        return Object.entries(errors).length > 0 ? false : true
+    }
     return <>
         {loader && <Loader loaderMsg="Loading" />}
         <div className="addExpense_comp">
@@ -103,7 +131,7 @@ const AddExpense = () => {
                 <div className="clearfix"></div>
                 < Header backBtn={true} name="Add Expense" />
                 <form onSubmit={handleSubmit}>
-                    <TextBox type="number" label="Amount" name="amount" value={amount} placeholder="Enter an amount" className="inputAmount" onChange={handlerChange} />
+                    <TextBox type="number" label="Amount" name="amount" value={amount} placeholder="Enter an amount" className={`inputAmount ${fieldError.amount ? 'error' : ''}`} onChange={handlerChange} />
                     <div className="selectListCon">
                         <p>Expenses made for</p>
                         <SelectList
@@ -114,7 +142,7 @@ const AddExpense = () => {
                         />
                     </div>
                     <div>
-                        <TextBox type="text" name="description" label="Description" value={description} className="description" placeholder="Add a comment" onChange={handlerChange} />
+                        <TextBox type="text" name="description" label="Description" value={description} className={`description ${fieldError.description ? 'error' : ''}`} placeholder="Add a comment" onChange={handlerChange} />
                     </div>
                     <div className="clearfix"></div>
                     <div className="btn">

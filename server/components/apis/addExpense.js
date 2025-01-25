@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 
 router.put('/', (req, res) => {
     const { amount, description, expenseType, icon } = req.body
-    const editID = req.query.editID
+    const editID = req.query.editID 
     db.query(`UPDATE ADMINDATA.EXPENSE_SUMMARY
         SET AMOUNT = $1, DESCRIPTION = $2, EXPENSE_TYPE = $3, ICON = $4
         where id= $5`, [amount, description, expenseType, icon, editID], (err, result) => {
@@ -32,18 +32,18 @@ router.put('/', (req, res) => {
             console.log('Error while updating data ' + err)
             return sendErrorResponse(res, 'Error', "Error while updating data!")
         }
-        return sendErrorResponse(res.status(200), 'Success', "Updated successfully.")
+        return sendErrorResponse(res.status(200), 'Success', "Expense updated successfully")
     })
 })
 
 router.post('/', (req, res) => {
     const { amount, description, expenseType, icon } = req.body
     if (!req.session.user) {
-        return sendErrorResponse(res, 'Error', "Login First")
+       return sendErrorResponse(res, 'Error', "Session expired")
     }
     const { email } = req.session.user;
     const username = 'not specified'
-    db.query('select username from admindata.users where email = $1', [email], (err, result) => {
+    db.query('select username from admindata.users where upper(email) = upper($1)', [email], (err, result) => {
         const fetchedUserName = result.rows.length > 0 ? result.rows[0].username : username
         db.query('INSERT INTO ADMINDATA.EXPENSE_SUMMARY(EMAIL,EXPENSE_TYPE,DESCRIPTION,AMOUNT,USERNAME,ICON) VALUES($1,$2,$3,$4::bigint,$5,$6)',
             [email, expenseType, description, amount, fetchedUserName, icon], (err, result) => {
