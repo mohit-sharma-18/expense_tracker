@@ -13,6 +13,8 @@ const port = 5000
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session);
 const pool = require('./db.js')
+const cookieParser = require('cookie-parser');
+
 
 app.use(express.json())
 app.use(cors({
@@ -20,25 +22,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }))
-app.use(
-    session({
-        store: new pgSession({
-            pool: pool,
-            tableName: 'session',
-            createTableIfMissing: true,
-        }),
-        secret: process.env.secret_key,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: process.env.node_env === 'production',
-            httpOnly: true,
-            maxAge: 3600000,
-            sameSite: process.env.node_env === 'production' ? 'none' : 'lax'
-        }
-    })
-);
-app.set('trust proxy', 1)
+app.use(cookieParser())
 app.use('/signup', signUp)
 app.use('/login', login)
 app.use('/addExpense', addExpense)

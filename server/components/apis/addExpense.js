@@ -2,12 +2,12 @@ const express = require('express')
 const router = express.Router()
 const db = require('../../db')
 const sendErrorResponse = require('./toastResponse')
+const authToken = require('../../common/authentication')
 
 router.use(express.json())
 
-router.get('/', (req, res) => {
+router.get('/', authToken, (req, res) => {
     const editID = req.query.editID
-    // const user = req.session.user
     db.query(`SELECT amount as amount,expense_type as expenseType,description as description , icon
         from admindata.expense_summary where id = $1`, [editID], (err, result) => {
         if (err) {
@@ -22,9 +22,9 @@ router.get('/', (req, res) => {
     })
 })
 
-router.put('/', (req, res) => {
+router.put('/', authToken, (req, res) => {
     const { amount, description, expenseType, icon } = req.body
-    const editID = req.query.editID 
+    const editID = req.query.editID
     db.query(`UPDATE ADMINDATA.EXPENSE_SUMMARY
         SET AMOUNT = $1, DESCRIPTION = $2, EXPENSE_TYPE = $3, ICON = $4
         where id= $5`, [amount, description, expenseType, icon, editID], (err, result) => {
@@ -36,12 +36,12 @@ router.put('/', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', authToken, (req, res) => {
     const { amount, description, expenseType, icon } = req.body
-    if (!req.session.user) {
-       return sendErrorResponse(res, 'Error', "Session expired")
+    if (!req.user) {
+        return sendErrorResponse(res, 'Error', "Session expired")
     }
-    const { email } = req.session.user;
+    const { email } = req.user;
     const username = 'not specified'
     db.query('select username from admindata.users where upper(email) = upper($1)', [email], (err, result) => {
         const fetchedUserName = result.rows.length > 0 ? result.rows[0].username : username
@@ -56,7 +56,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', authToken, (req, res) => {
     const deleteID = req.query.deleteID
     db.query(`DELETE FROM ADMINDATA.EXPENSE_SUMMARY
         where id= $1`, [deleteID], (err, result) => {

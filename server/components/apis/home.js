@@ -2,18 +2,13 @@ const express = require('express')
 const router = express.Router()
 const db = require('../../db')
 const sendErrorResponse = require('./toastResponse')
-
+const authToken = require('../../common/authentication')
 router.use(express.json())
 
-router.get('/', (req, res) => {
-    console.log('req.session', req.session);
-
-    if (!req.session.user) {
-        return sendErrorResponse(res, 'Error', "Login First")
-    }
-    const { email } = req.session.user;
+router.get('/', authToken, (req, res) => {
+    const { email } = req.user;
     const dateTime = req.query.date ?? 'todayDate'
-    console.log('dateTime', dateTime);
+    console.log('req.user', req.user);
 
     db.query(`with temp_data as(
                     select id::text as id, INITCAP(expense_type) as expense_type ,description,amount ,icon

@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../../db')
-const app = express()
+const authToken = require('../../common/authentication')
+const isprd = process.env.node_env === 'production'
+require('dotenv').config()
 
-// router.post('/logout', (req, res) => {
-
-// })
-router.post('/', (req, res) => {
-    req.session.destroy((err) => {
-        console.log('session destroyed');
-        return res.json({ "resPath": "/login", "auth": false })
-    })
+router.post('/', authToken, (req, res) => {
+    res.clearCookie("token",
+        {
+            httpOnly: true,
+            secure: isprd ? true : false,
+            sameSite: isprd ? 'none' : 'lax'
+        })
+    console.log('session destroyed');
+    return res.json({ "resPath": "/login", "auth": false })
 })
-
 module.exports = router

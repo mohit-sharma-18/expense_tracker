@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { data, Link } from 'react-router-dom'
 import callApi from '../utility/callApi';
+import Loader from './Loader';
 const ExpenseList = (props) => {
     const { apiData, onSendData } = props
-    console.log('api', apiData);
+    const [loader, setLoader] = useState(false)
+
 
     const handlerDelete = (e) => {
+        e.preventDefault()
+        setLoader(true)
         const deleteID = e.target.getAttribute("data-value")
-        callApi(`/addExpense?deleteID=${deleteID}`, 'DELETE', null).then((data) => {
-            console.log('data', data)
+        callApi(`/addExpense?deleteID=${deleteID}`, 'DELETE', null, setLoader).then((data) => {
             onSendData(data)
         })
     }
@@ -16,6 +19,7 @@ const ExpenseList = (props) => {
     return (
         <>
             <div className="expenseList_comp">
+                {loader && <Loader loaderMsg="Loading" />}
                 <div className="container">
                     <ul className="exListBox">
                         {apiData.map((data, i) => {

@@ -1,5 +1,5 @@
 import 'font-awesome/css/font-awesome.min.css';
-import { act, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExpenseList from '../../components/ExpenseList';
 import Header from '../../components/Header';
 import { Link } from 'react-router-dom'
@@ -30,6 +30,8 @@ const Home = (props) => {
     }, [])
 
     useEffect((e) => {
+        console.log('apiData---', apiData);
+
         if (apiData.length > 0) {
             apiData.filter((e) => {
                 e.expense_type == 'Total' && setDefaults(prev => ({
@@ -47,8 +49,12 @@ const Home = (props) => {
     useEffect((e) => {
         let timeout;
         if (showToast) {
+            let activeTab = document.getElementsByClassName('active')[0].getAttribute('value')
             timeout = setTimeout(() => {
                 setShowToast(false)
+                callApi(`/home?date=${activeTab}`, 'GET', null, setLoader).then((data) => {
+                    setApiData(data)
+                })
             }, 2000);
         }
         return (() => clearTimeout(timeout))
@@ -65,7 +71,7 @@ const Home = (props) => {
         callApi(`/home?date=${activeCls}`, 'GET', null, setLoader).then((data) => {
             setApiData(data)
         })
-    }, [activeCls, showToast])
+    }, [activeCls])
 
     const handleUserData = (data) => {
         setSideBarFlag(true)
@@ -74,6 +80,7 @@ const Home = (props) => {
         setSideBarFlag(!sideBarFlag)
     }
     const handleGetData = (data) => {
+        console.log('data', data);
         setApiData(data)
         setShowToast(true)
     }
@@ -82,6 +89,9 @@ const Home = (props) => {
     return (
         <>
             {loader && <Loader loaderMsg="Loading" />}
+            {console.log('---',apiData)
+            }
+            {/* {!apiData.length &&  < Loader loaderMsg="Loading" />} */}
             {sideBarFlag && <UserProfile openSidebar={sideBarFlag} overlayHandle={handlersideBar} />}
             <div className="home_comp">
                 <div className="container">
@@ -96,7 +106,7 @@ const Home = (props) => {
                     <div className="clearfix"></div>
                     <div className="expenseDetails">
                         <div className="allExpense">All Expenses {apiData.length > 0 ? `(${apiData.length - 1})` : '(0)'}</div>
-                        <div className="viewAll">View All</div>
+                        {/* <div className="viewAll">View All</div> */}
                     </div>
                     <div className="dateTimeContainer">
                         <div className={`todayDate ${activeCls == "todayDate" ? 'active' : ''}`} value="todayDate" onClick={handleDate}>Today</div>
@@ -107,6 +117,8 @@ const Home = (props) => {
                         <div className="day">{day}</div>
                     </div>
                     {/* <div className="clearfix"></div> */}
+                    {console.log('apiData.length', apiData)
+                    }
                     {apiData.length > 0 ?
                         <div className="expenseList">
                             <ExpenseList apiData={apiData} onSendData={handleGetData} />
