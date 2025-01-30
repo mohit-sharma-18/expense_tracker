@@ -3,7 +3,7 @@ console.log('apiUrl', apiUrl);
 
 const callApi = (apiPath, apiMethod, apibody, setLoader) => {
     console.log('apiPath', apiPath, apiMethod);
-    
+
     if (setLoader) setLoader(true)
     return fetch(apiUrl + apiPath, {
         method: apiMethod,
@@ -15,6 +15,7 @@ const callApi = (apiPath, apiMethod, apibody, setLoader) => {
     })
         .then((res) => {
             console.log('res', res, '---', apiUrl + apiPath);
+            if (res.status === 401) window.location.href = '/login'
             if (!res.ok) {
                 console.log('Error')
                 return {

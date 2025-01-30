@@ -5,7 +5,7 @@ require("dotenv").config()
 const authToken = (req, res, next) => {
     const validToken = req.cookies.token
     if (!validToken) {
-        return sendErrorResponse(res, "Error", "Access Denied!!")
+        return sendErrorResponse(res.status(401), "Error", "Access Denied!!")
     }
     try {
         const verifyToken = jwt.verify(validToken, process.env.jwt_secret)
@@ -14,7 +14,7 @@ const authToken = (req, res, next) => {
     }
     catch (err) {
         console.log('token err', err);
-        return sendErrorResponse(res, "Error", "Access Denied!!")
+        return sendErrorResponse(res.status(401), "Error", "Access Denied!!")
     }
 }
 
