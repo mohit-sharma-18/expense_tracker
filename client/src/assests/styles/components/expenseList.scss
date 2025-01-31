@@ -4,6 +4,10 @@
     display: flex;
     justify-content: center;
 
+    .loader_comp {
+        height: 60vh;
+    }
+
     .exListBox {
         li.exListItem {
             list-style: none;

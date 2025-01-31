@@ -116,7 +116,7 @@ const AddExpense = () => {
     const validate = () => {
         let errors = {}
         for (let key in defaults) {
-            if (defaults[key].trim().length < 1) {
+            if (defaults[key].toString().trim().length < 1) {
                 errors[key] = 'error'
             }
         }

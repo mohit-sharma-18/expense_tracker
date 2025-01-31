@@ -13,6 +13,7 @@ const Home = (props) => {
 
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
+    const [toastData, setToastData] = useState([])
     const [loader, setLoader] = useState(true)
     const [sideBarFlag, setSideBarFlag] = useState(false)
     const [showSignOut, setShowSignOut] = useState(false)
@@ -30,8 +31,6 @@ const Home = (props) => {
     }, [])
 
     useEffect((e) => {
-        console.log('apiData---', apiData);
-
         if (apiData.length > 0) {
             apiData.filter((e) => {
                 e.expense_type == 'Total' && setDefaults(prev => ({
@@ -80,60 +79,54 @@ const Home = (props) => {
         setSideBarFlag(!sideBarFlag)
     }
     const handleGetData = (data) => {
-        console.log('data', data);
-        setApiData(data)
         setShowToast(true)
+        setToastData(data)
     }
 
     const { totalSum, day, password, confirmPass } = defaults
     return (
         <>
-            {loader && <Loader loaderMsg="Loading" />}
-            {console.log('---',apiData)
-            }
-            {/* {!apiData.length &&  < Loader loaderMsg="Loading" />} */}
             {sideBarFlag && <UserProfile openSidebar={sideBarFlag} overlayHandle={handlersideBar} />}
-            <div className="home_comp">
-                <div className="container">
-                    {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
-                    <div className="clearfix"></div>
-                    < Header dots={true} name="Dashboard" userProfile={true} sideBarFlagData={handleUserData} />
-                    <div className="clearfix"></div>
-                    <div className="expenseContainer">
-                        <div className="totalMoney"> <span className="rupess">&#x20b9;</span> {totalSum}</div>
-                        <div className="currency">INR</div>
-                    </div>
-                    <div className="clearfix"></div>
-                    <div className="expenseDetails">
-                        <div className="allExpense">All Expenses {apiData.length > 0 ? `(${apiData.length - 1})` : '(0)'}</div>
-                        {/* <div className="viewAll">View All</div> */}
-                    </div>
-                    <div className="dateTimeContainer">
-                        <div className={`todayDate ${activeCls == "todayDate" ? 'active' : ''}`} value="todayDate" onClick={handleDate}>Today</div>
-                        <div className={`last7Days ${activeCls == "last7Days" ? 'active' : ''}`} value="last7Days" onClick={handleDate}>Last 7 Days</div>
-                        <div className={`last30Days ${activeCls == "last30Days" ? 'active' : ''}`} value="last30Days" onClick={handleDate}>Last Month</div>
-                    </div>
-                    <div className="expenseDay">
-                        <div className="day">{day}</div>
-                    </div>
-                    {/* <div className="clearfix"></div> */}
-                    {console.log('apiData.length', apiData)
-                    }
-                    {apiData.length > 0 ?
-                        <div className="expenseList">
-                            <ExpenseList apiData={apiData} onSendData={handleGetData} />
+            {loader ? <Loader loaderMsg="Loading" /> :
+                <div className="home_comp">
+                    <div className="container">
+                        {showToast && <Toast toastHeader={toastData.toastHeader} toastMsg={toastData.toastMsg} toastColor={toastData.toastColor} toastIcon={toastData.toastIcon} />}
+                        <div className="clearfix"></div>
+                        < Header dots={true} name="Dashboard" userProfile={true} sideBarFlagData={handleUserData} />
+                        <div className="clearfix"></div>
+                        <div className="expenseContainer">
+                            <div className="totalMoney"> <span className="rupess">&#x20b9;</span> {totalSum}</div>
+                            <div className="currency">INR</div>
                         </div>
-                        :
-                        <div className='noDataFoundContainer'> <div className="clearfix"></div>
-                            <img src={noDataFoundImage} alt="" width={300} />
-                            <div className="noDataFound">No expenses added</div>
-                            <p className='noDataFoundPara'>Start tracking your expenses to see them here!</p></div>
-                    }
-                    <div className="addIcon">
-                        <Link to='/addExpense'> <i className="fa fa-plus"></i> </Link>
+                        <div className="clearfix"></div>
+                        <div className="expenseDetails">
+                            <div className="allExpense">All Expenses {apiData.length > 0 ? `(${apiData.length - 1})` : '(0)'}</div>
+                            {/* <div className="viewAll">View All</div> */}
+                        </div>
+                        <div className="dateTimeContainer">
+                            <div className={`todayDate ${activeCls == "todayDate" ? 'active' : ''}`} value="todayDate" onClick={handleDate}>Today</div>
+                            <div className={`last7Days ${activeCls == "last7Days" ? 'active' : ''}`} value="last7Days" onClick={handleDate}>Last 7 Days</div>
+                            <div className={`last30Days ${activeCls == "last30Days" ? 'active' : ''}`} value="last30Days" onClick={handleDate}>Last Month</div>
+                        </div>
+                        <div className="expenseDay">
+                            <div className="day">{day}</div>
+                        </div>
+                        {apiData.length > 0 ?
+                            <div className="expenseList">
+                                <ExpenseList apiData={apiData} onSendData={handleGetData} />
+                            </div>
+                            :
+                            <div className='noDataFoundContainer'> <div className="clearfix"></div>
+                                <img src={noDataFoundImage} alt="" width={300} />
+                                <div className="noDataFound">No expenses added</div>
+                                <p className='noDataFoundPara'>Start tracking your expenses to see them here!</p></div>
+                        }
+                        <div className="addIcon">
+                            <Link to='/addExpense'> <i className="fa fa-plus"></i> </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </>
     )
 }

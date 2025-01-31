@@ -1,9 +1,5 @@
 const apiUrl = process.env.REACT_APP_API_URL
-console.log('apiUrl', apiUrl);
-
 const callApi = (apiPath, apiMethod, apibody, setLoader) => {
-    console.log('apiPath', apiPath, apiMethod);
-
     if (setLoader) setLoader(true)
     return fetch(apiUrl + apiPath, {
         method: apiMethod,
@@ -14,10 +10,8 @@ const callApi = (apiPath, apiMethod, apibody, setLoader) => {
         body: apibody ? JSON.stringify(apibody) : null
     })
         .then((res) => {
-            console.log('res', res, '---', apiUrl + apiPath);
             if (res.status === 401) window.location.href = '/login'
             if (!res.ok) {
-                console.log('Error')
                 return {
                     "toastHeader": 'Error',
                     "toastMsg": res.statusText,
@@ -29,7 +23,7 @@ const callApi = (apiPath, apiMethod, apibody, setLoader) => {
             return res.json()
         })
         .then((data) => {
-            console.log('Response', data)
+            console.log('data', data)
             return data
         })
         .catch((err) => {
