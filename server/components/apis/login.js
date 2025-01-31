@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         const passMatch = await bcrypt.compare(password, result.rows[0].password)
         if (!passMatch) return sendErrorResponse(res, "Error", "Incorrect password")
 
-        const finalToken = jwt.sign({ userId: result.rows[0].id, email: result.rows[0].email }, process.env.jwt_secret, {
+        const finalToken = jwt.sign({ userId: result.rows[0].id, email: result.rows[0].email, user: result.rows[0].username }, process.env.jwt_secret, {
             expiresIn: process.env.jwt_expire
         })
         console.log('finalToken', finalToken);

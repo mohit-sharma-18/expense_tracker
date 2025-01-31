@@ -12,11 +12,11 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
 
     useEffect(() => {
         callApi('/userProfile', 'GET', null, setLoader).then((data) => {
-            console.log('data', data[0].username)
+            console.log('data--', data.username)
             setApiData(data)
             setDefaults(prev => ({
                 ...prev,
-                username: data[0].username
+                username: data.username
             }))
         })
     }, [])
