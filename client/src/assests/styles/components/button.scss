@@ -7,7 +7,6 @@
     border: none;
     font-weight: bold;
     cursor: pointer;
-    // box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 button.primary {
@@ -44,3 +43,9 @@ button.secondary {
     --_i: 100%;
     transition: .3s, background-size .3s .3s;
 }
+
+@supports (-webkit-touch-callout: none) {
+    button{
+      font-size: 16px; 
+    }
+  }
