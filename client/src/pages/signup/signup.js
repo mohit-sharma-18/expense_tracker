@@ -3,13 +3,11 @@ import logo from '../../images/logo.png'
 import Button from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Toast from '../../components/Toast'
 import callApi from '../../utility/callApi'
 import Loader from '../../components/Loader'
 
 const Signup = () => {
     const Navigate = useNavigate()
-    const [showToast, setShowToast] = useState(false)
     const [loader, setLoader] = useState(false)
     const [defaults, setDefaults] = useState({
         username: '',
@@ -28,7 +26,6 @@ const Signup = () => {
             setLoader(true)
             callApi('/signup', 'POST', defaults, setLoader).then((data) => {
                 setApiData(data)
-                setShowToast(true)
             })
         }
         return
@@ -50,16 +47,6 @@ const Signup = () => {
 
     }, [apiData])
 
-    //i will handle state later with redux or contxt
-    useEffect((e) => {
-        let timeout;
-        if (showToast) {
-            timeout = setTimeout(() => {
-                setShowToast(false)
-            }, 2000);
-        }
-        return (() => clearTimeout(timeout))
-    }, [showToast])
 
     const validate = () => {
         let errors = {}
@@ -84,7 +71,6 @@ const Signup = () => {
         <>
             {loader && <Loader loaderMsg="Please wait while we finish setting up your account" />}
             <div className="signup_comp">
-                {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
                 <div className="header">
                     <div className="logo">
                         <img src={logo} alt="logo is here" width={230} />

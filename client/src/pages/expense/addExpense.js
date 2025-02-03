@@ -5,7 +5,6 @@ import SelectList from "../../components/SelectList"
 import callApi from "../../utility/callApi"
 import Button from "../../components/Button"
 import { Link, useNavigate } from "react-router"
-import Toast from "../../components/Toast"
 import { useSearchParams } from "react-router"
 import Loader from "../../components/Loader"
 
@@ -79,7 +78,6 @@ const AddExpense = () => {
             if (editID) {
                 callApi(`/addExpense?editID=${editID}`, 'PUT', defaults).then((data) => {
                     setApiData(data)
-                    setShowToast(true)
                 })
                 return
             }
@@ -87,13 +85,11 @@ const AddExpense = () => {
             callApi('/addExpense', 'POST', defaults).then((data) => {
                 if (data?.auth == false) {
                     setApiData(data)
-                    setShowToast(true)
                     setTimeout(() => {
                         return Navigate('/login')
                     }, 2500);
                 }
                 setApiData(data)
-                setShowToast(true)
                 setDefaults((prev) => ({
                     ...prev,
                     amount: '',
@@ -102,16 +98,6 @@ const AddExpense = () => {
             })
         }
     }
-    //i will handle state later with redux or contxt
-    useEffect((e) => {
-        let timeout;
-        if (showToast) {
-            timeout = setTimeout(() => {
-                setShowToast(false)
-            }, 2000);
-        }
-        return (() => clearTimeout(timeout))
-    }, [showToast])
 
     const validate = () => {
         let errors = {}
@@ -127,8 +113,7 @@ const AddExpense = () => {
         {loader && <Loader loaderMsg="Loading" />}
         <div className="addExpense_comp">
             <div className="addExpenseContainer">
-                {showToast && <Toast toastHeader={apiData.toastHeader} toastMsg={apiData.toastMsg} toastColor={apiData.toastColor} toastIcon={apiData.toastIcon} />}
-                <div className="clearfix"></div>
+                 <div className="clearfix"></div>
                 < Header backBtn={true} name="Add Expense" />
                 <form onSubmit={handleSubmit}>
                     <TextBox type="number" label="Amount" name="amount" value={amount} placeholder="Enter an amount" className={`inputAmount ${fieldError.amount ? 'error' : ''}`} onChange={handlerChange} />

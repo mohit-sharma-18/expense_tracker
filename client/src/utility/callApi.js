@@ -1,4 +1,7 @@
+import store from "../redux/store/store"
+import { showToast } from "../redux/store/actions"
 const apiUrl = process.env.REACT_APP_API_URL
+
 const callApi = (apiPath, apiMethod, apibody, setLoader) => {
     if (setLoader) setLoader(true)
     return fetch(apiUrl + apiPath, {
@@ -12,18 +15,30 @@ const callApi = (apiPath, apiMethod, apibody, setLoader) => {
         .then((res) => {
             if (res.status === 401) window.location.href = '/login'
             if (!res.ok) {
-                return {
-                    "toastHeader": 'Error',
-                    "toastMsg": res.statusText,
-                    "toastColor": 'red',
-                    "toastIcon": 'fa-close',
-                    "auth": res.redirected
-                }
+                return store.dispatch(
+                    showToast({
+                        "toastHeader": 'Error',
+                        "toastMsg": res.statusText,
+                        "toastColor": 'red',
+                        "toastIcon": 'fa-close',
+                        "auth": res.redirected
+                    })
+                )
             }
             return res.json()
         })
         .then((data) => {
-            console.log('data', data)
+            if (data?.toastHeader) {
+                store.dispatch(
+                    showToast({
+                        "toastHeader": data.toastHeader,
+                        "toastMsg": data.toastMsg,
+                        "toastColor": data.toastColor,
+                        "toastIcon": data.toastIcon,
+                        "auth": data.redirected
+                    })
+                )
+            }
             return data
         })
         .catch((err) => {
