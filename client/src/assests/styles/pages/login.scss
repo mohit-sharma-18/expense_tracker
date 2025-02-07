@@ -51,4 +51,10 @@
         background: grey;
     }
 
+    div#google-login-button {
+        >div {
+            min-width: 322px;
+        }
+    }
+
 }

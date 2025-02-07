@@ -92,7 +92,7 @@ const Signup = () => {
                             <div className="btn">
                                 <Button type="submit" name="Sign Up" className="primary" style={{ width: "325px" }}></Button>
                                 {/* <Link to='/login'> <Button name="Already have an account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link> */}
-                                <div className="login" style={{ "fontSize": "14px", "margin": "16px", "fontFamily": '"Google Sans",arial,sans-serif', "color": "grey" }}>Already have an account? <Link to="/login">Login</Link> </div>
+                                <div className="login" style={{ "fontSize": "15px", "margin": "16px", fontWeight: "500", "color": "grey" }}>Already have an account? <Link to="/login">Login</Link> </div>
                             </div>
                         </form>
                     </div>
