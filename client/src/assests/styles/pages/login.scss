@@ -52,8 +52,17 @@
     }
 
     div#google-login-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
         >div {
-            min-width: 322px;
+            width: 100% !important;
+            min-width: 322px !important;
+            max-width: 325px !important;
         }
     }
 

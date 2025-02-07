@@ -18,7 +18,7 @@ const GoogleAuthLogin = ({ gmail }) => {
             })
             window.google.accounts.id.renderButton(
                 document.getElementById("google-login-button"),
-                { theme: "outline", size: "large" }
+                { theme: "outline", size: "large", width: 322 }
             );
         }
 
