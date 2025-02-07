@@ -45,7 +45,7 @@ const Login = () => {
             email: data,
         }))
         console.log(defaults);
-        
+
     }
 
     return (
@@ -73,7 +73,7 @@ const Login = () => {
                                 <Button type="submit" name="Sign in" className="primary" style={{ width: "325px" }}></Button>
                                 <div className="googleLoginContainer"> <div className='googleLogin'><span className='hLine'></span><span>or</span><span className='hLine'></span> </div> <GoogleAuthLogin email={googleEmail} /></div>
                                 {/* <Link to="/signup"> <Button name="Create new account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link> */}
-                                <div className="signup" style={{ "fontSize": "14px", "margin": "10px" }}>Don't have an account? <Link to="/signup">Sign Up</Link> </div>
+                                <div className="signup" style={{ "fontSize": "14px", "margin": "14px", "fontFamily": '"Google Sans",arial,sans-serif',"color":"grey" }}>Don't have an account? <Link to="/signup">Sign Up</Link> </div>
                             </div>
                         </form>
                     </div>
