@@ -14,6 +14,7 @@ const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session);
 const pool = require('./db.js')
 const cookieParser = require('cookie-parser');
+const helmet = require("helmet")
 
 
 app.use(express.json())
@@ -29,6 +30,27 @@ app.use('/addExpense', addExpense)
 app.use('/home', home)
 app.use('/userProfile', userProfile)
 app.use('/logout', logout)
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: [
+                    "'self'", 
+                    "'unsafe-inline'", 
+                    "'unsafe-eval'", 
+                    "https://accounts.google.com",
+                    "https://apis.google.com",
+                    "https://www.gstatic.com",
+                    "https://www.gstatic.com/_/mss/boq-identity/",
+                  ],
+                  frameSrc: ["'self'", "https://accounts.google.com"],
+                  connectSrc: ["'self'", "https://accounts.google.com", "https://www.gstatic.com"],
+            },
+        },
+    })
+)
 
 app.get('/connection', async (req, res) => {
     try {

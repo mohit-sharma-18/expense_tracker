@@ -2,13 +2,16 @@ import store from "../redux/store/store"
 import { showToast } from "../redux/store/actions"
 const apiUrl = process.env.REACT_APP_API_URL
 
-const callApi = (apiPath, apiMethod, apibody, setLoader) => {
+const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
     if (setLoader) setLoader(true)
+    const headers = {
+        "Content-Type": "application/json",
+    };
+    if (Oauth)
+        headers["Authorization"] = `Bearer ${token}`;
     return fetch(apiUrl + apiPath, {
         method: apiMethod,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: headers,
         credentials: 'include',
         body: apibody ? JSON.stringify(apibody) : null
     })

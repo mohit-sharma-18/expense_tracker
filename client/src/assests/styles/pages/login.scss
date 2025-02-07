@@ -29,4 +29,25 @@
             font-weight: 600;
         }
     }
+
+    .googleLogin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 10px;
+        font-size: 12px;
+    }
+    .googleLoginContainer{
+        width: 96%;
+        margin: auto;
+    }
+
+    span.hLine {
+        width: 90px;
+        display: inline-block;
+        height: 1px;
+        background: grey;
+    }
+
 }

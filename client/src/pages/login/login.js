@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import callApi from '../../utility/callApi'
 import Loader from '../../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
+import GoogleAuthLogin from '../../auth/googleAuth'
 
 const Login = () => {
     const [apiData, setApidata] = useState([])
@@ -37,6 +38,16 @@ const Login = () => {
 
     }
 
+    const googleEmail = (data) => {
+        console.log('data', data);
+        setDefaults((prev) => ({
+            ...prev,
+            email: data,
+        }))
+        console.log(defaults);
+        
+    }
+
     return (
         <>
             {loader && <Loader loaderMsg="Just a moment, your login is in progress" />}
@@ -60,7 +71,9 @@ const Login = () => {
                             </div>
                             <div className="btn">
                                 <Button type="submit" name="Sign in" className="primary" style={{ width: "325px" }}></Button>
-                                <Link to="/signup"> <Button name="Create new account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link>
+                                <div className="googleLoginContainer"> <div className='googleLogin'><span className='hLine'></span><span>or</span><span className='hLine'></span> </div> <GoogleAuthLogin email={googleEmail} /></div>
+                                {/* <Link to="/signup"> <Button name="Create new account" className="secondary createBtn" style={{ width: "325px" }}></Button></Link> */}
+                                <div className="signup" style={{ "fontSize": "14px", "margin": "10px" }}>Don't have an account? <Link to="/signup">Sign Up</Link> </div>
                             </div>
                         </form>
                     </div>
