@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import callApi from "../utility/callApi";
+import { useNavigate } from "react-router";
 
-const GoogleAuthLogin = ({ email }) => {
+const GoogleAuthLogin = ({ gmail }) => {
+    const navigate = useNavigate()
     useEffect(() => {
         const script = document.createElement('script')
         script.src = "https://accounts.google.com/gsi/client";
@@ -30,10 +32,15 @@ const GoogleAuthLogin = ({ email }) => {
         fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + token)
             .then((res) => res.json())
             .then((userData) => {
-                console.log("User Info:", userData);
                 const userEmail = userData.email;
-                console.log("User's Email:", userEmail);
-                email(userEmail)
+                gmail(userEmail)
+                if (userData) {
+                    callApi('/login', 'POST', { email: userEmail, googleAuth: true }).then((data) => {
+                        if (data.auth === true) {
+                            return navigate(data.resPath)
+                        }
+                    })
+                }
             })
             .catch((error) => {
                 console.error("Error fetching user info:", error);
