@@ -58,11 +58,13 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        text-align: center;
 
         >div {
-            width: 100% !important;
-            min-width: 322px !important;
-            max-width: 325px !important;
+            width: 100% ;
+            min-width: 322px ;
+            max-width: 325px;
+            text-align: center;
         }
     }
 
