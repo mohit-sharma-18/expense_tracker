@@ -9,12 +9,17 @@ import Signup from './pages/signup/signup';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Toast from './components/Toast';
 import { hideToast } from './redux/store/actions';
+import Loader from './components/Loader';
+import { useEffect } from 'react';
 
 const App = () => {
 
   const toast = useSelector((state) => state.toast)
   const dispatch = useDispatch()
   console.log('toast', toast);
+  useEffect(() => {
+    console.log(' toast.showLoader', toast.showLoader)
+  })
   return (
     <div className="App">
       {toast.showToast &&
@@ -26,6 +31,10 @@ const App = () => {
           closeToast={() => dispatch(hideToast())}
         />
 
+      }
+      {
+
+        toast.showLoader && <Loader loaderMsg="Loading" />
       }
       <Routes>
         <Route path="/" element={<Navigate to='/login' replace />} />

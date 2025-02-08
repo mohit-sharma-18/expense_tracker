@@ -3,7 +3,6 @@ import callApi from "../utility/callApi"
 import Loader from "./Loader"
 import { useNavigate } from "react-router"
 const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
-    const [loader, setLoader] = useState(false)
     const Navigate = useNavigate()
     const [defaults, setDefaults] = useState({
         username: localStorage.getItem("username") || null
@@ -11,8 +10,7 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
 
     useEffect(() => {
         if (!defaults.username) {
-            setLoader(true)
-            callApi('/userProfile', 'GET', null, setLoader).then((data) => {
+            callApi('/userProfile', 'GET', null).then((data) => {
                 setDefaults(prev => ({
                     ...prev,
                     username: data.username
@@ -25,7 +23,7 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
 
     const handlerLogout = () => {
         localStorage.removeItem("username")
-        callApi('/logout', 'POST', { username: "dummy" }, setLoader).then((data) => {
+        callApi('/logout', 'POST', { username: "dummy" }).then((data) => {
             if (data.auth === false) {
                 return Navigate(data.resPath)
             }
@@ -37,7 +35,6 @@ const UserProfile = ({ onClick, openSidebar, overlayHandle }) => {
             <div className="userProfileComp">
                 <div className="overlay" onClick={overlayHandle}></div>
                 <div className={`sideBarContainer ${openSidebar ? 'open' : ''}`}>
-                    {loader && <Loader loaderMsg="Loading" />}
                     <div className="userDetails">
                         <div className="profile">
                             <i className="fa fa-user"></i>

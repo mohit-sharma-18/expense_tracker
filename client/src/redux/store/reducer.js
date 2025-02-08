@@ -5,11 +5,12 @@ const initialState = {
     toastMsg: '',
     toastColor: '',
     toastIcon: '',
-    showToast: false
+    showToast: false,
+    showLoader: false
 };
 
 const toastReducer = (state = initialState, action) => {
-    console.log('action',action);
+    console.log('action', action);
     switch (action.type) {
         case 'SHOW_TOAST':
             return {
@@ -24,6 +25,16 @@ const toastReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showToast: false
+            }
+        case 'SHOW_LOADER':
+            return {
+                ...state,
+                showLoader: true
+            }
+        case 'HIDE_LOADER':
+            return {
+                ...state,
+                showLoader: false
             }
         default:
             return state

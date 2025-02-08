@@ -1,9 +1,14 @@
 import store from "../redux/store/store"
-import { showToast } from "../redux/store/actions"
+import { showToast, showLoader, hideLoader } from "../redux/store/actions"
+import { useDispatch } from "react-redux"
 const apiUrl = process.env.REACT_APP_API_URL
 
 const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
-    if (setLoader) setLoader(true)
+    store.dispatch(
+        showLoader({
+            "showLoader": true,
+        })
+    )
     const headers = {
         "Content-Type": "application/json",
     };
@@ -48,7 +53,14 @@ const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
             console.log('Error while post req', err);
         })
         .finally(() => {
-            if (setLoader) setLoader(false)
+            console.log('finallyy');
+            
+            store.dispatch(
+                hideLoader({
+                    "showLoader": false,
+                })
+            )
+
         })
 }
 

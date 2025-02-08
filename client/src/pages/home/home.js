@@ -87,7 +87,7 @@ const Home = (props) => {
     return (
         <>
             {sideBarFlag && <UserProfile openSidebar={sideBarFlag} overlayHandle={handlersideBar} />}
-            {loader ? <Loader loaderMsg="Loading" /> :
+            {/* {loader ? <Loader loaderMsg="Loading" /> : */}
                 <div className="home_comp">
                     <div className="container">
                         {showToast && <Toast toastHeader={toastData.toastHeader} toastMsg={toastData.toastMsg} toastColor={toastData.toastColor} toastIcon={toastData.toastIcon} />}
@@ -126,7 +126,7 @@ const Home = (props) => {
                         </div>
                     </div>
                 </div>
-            }
+            {/* } */}
         </>
     )
 }

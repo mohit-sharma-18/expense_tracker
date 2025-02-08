@@ -4,11 +4,9 @@ import Button from '../../components/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import callApi from '../../utility/callApi'
-import Loader from '../../components/Loader'
 
 const Signup = () => {
     const Navigate = useNavigate()
-    const [loader, setLoader] = useState(false)
     const [defaults, setDefaults] = useState({
         username: '',
         email: '',
@@ -23,8 +21,7 @@ const Signup = () => {
     const handlerSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
-            setLoader(true)
-            callApi('/signup', 'POST', defaults, setLoader).then((data) => {
+            callApi('/signup', 'POST', defaults).then((data) => {
                 setApiData(data)
             })
         }
@@ -69,7 +66,6 @@ const Signup = () => {
     return (
 
         <>
-            {loader && <Loader loaderMsg="Please wait while we finish setting up your account" />}
             <div className="signup_comp">
                 <div className="header">
                     <div className="logo">

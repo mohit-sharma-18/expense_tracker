@@ -10,10 +10,7 @@ import Loader from "../../components/Loader"
 
 const AddExpense = () => {
     const [params] = useSearchParams()
-    const [selectedValue, setSelectedValue] = useState("Tea & Snacks");
-    const [showToast, setShowToast] = useState(false)
     const [apiData, setApiData] = useState([])
-    const [loader, setLoader] = useState(false)
     const [fieldError, setFieldError] = useState({})
     const editID = params.get('editID')
     const expenseTypeData = [
@@ -41,8 +38,7 @@ const AddExpense = () => {
 
     useEffect(() => {
         if (editID) {
-            setLoader(true)
-            callApi(`/addExpense?editID=${editID}`, 'GET', null, setLoader).then((data) => {
+            callApi(`/addExpense?editID=${editID}`, 'GET', null).then((data) => {
                 setDefaults((prev) => ({
                     ...prev,
                     amount: data[0].amount,
@@ -69,7 +65,6 @@ const AddExpense = () => {
             expenseType: e.target.value,
             icon: fetchedIcon
         }))
-        setSelectedValue(e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -110,7 +105,6 @@ const AddExpense = () => {
         return Object.entries(errors).length > 0 ? false : true
     }
     return <>
-        {loader && <Loader loaderMsg="Loading" />}
         <div className="addExpense_comp">
             <div className="addExpenseContainer">
                  <div className="clearfix"></div>
