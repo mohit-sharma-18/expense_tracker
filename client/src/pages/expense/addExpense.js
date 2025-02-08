@@ -6,7 +6,6 @@ import callApi from "../../utility/callApi"
 import Button from "../../components/Button"
 import { Link, useNavigate } from "react-router"
 import { useSearchParams } from "react-router"
-import Loader from "../../components/Loader"
 
 const AddExpense = () => {
     const [params] = useSearchParams()

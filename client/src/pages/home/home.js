@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import callApi from '../../utility/callApi';
 import Toast from '../../components/Toast';
 import noDataFoundImage from '../../images/nodatauser.png'
-import Loader from '../../components/Loader';
 import UserProfile from '../../components/userProfile';
 
 const Home = (props) => {
@@ -14,7 +13,6 @@ const Home = (props) => {
     const [apiData, setApiData] = useState([])
     const [showToast, setShowToast] = useState(false)
     const [toastData, setToastData] = useState([])
-    const [loader, setLoader] = useState(true)
     const [sideBarFlag, setSideBarFlag] = useState(false)
     const [showSignOut, setShowSignOut] = useState(false)
     const [activeCls, setActiveCls] = useState("todayDate")
@@ -25,7 +23,7 @@ const Home = (props) => {
         confirmPass: '',
     })
     useEffect(() => {
-        callApi('/home', 'GET', null, setLoader).then((data) => {
+        callApi('/home', 'GET', null).then((data) => {
             setApiData(data)
         })
     }, [])
@@ -51,7 +49,7 @@ const Home = (props) => {
             let activeTab = document.getElementsByClassName('active')[0].getAttribute('value')
             timeout = setTimeout(() => {
                 setShowToast(false)
-                callApi(`/home?date=${activeTab}`, 'GET', null, setLoader).then((data) => {
+                callApi(`/home?date=${activeTab}`, 'GET', null).then((data) => {
                     setApiData(data)
                 })
             }, 2000);
@@ -67,7 +65,7 @@ const Home = (props) => {
                 : setActiveCls('last30Days')
     }
     useEffect(() => {
-        callApi(`/home?date=${activeCls}`, 'GET', null, setLoader).then((data) => {
+        callApi(`/home?date=${activeCls}`, 'GET', null).then((data) => {
             setApiData(data)
         })
     }, [activeCls])
@@ -87,7 +85,6 @@ const Home = (props) => {
     return (
         <>
             {sideBarFlag && <UserProfile openSidebar={sideBarFlag} overlayHandle={handlersideBar} />}
-            {/* {loader ? <Loader loaderMsg="Loading" /> : */}
                 <div className="home_comp">
                     <div className="container">
                         {showToast && <Toast toastHeader={toastData.toastHeader} toastMsg={toastData.toastMsg} toastColor={toastData.toastColor} toastIcon={toastData.toastIcon} />}
