@@ -1,12 +1,11 @@
 import store from "../redux/store/store"
 import { showToast, showLoader, hideLoader } from "../redux/store/actions"
-import { useDispatch } from "react-redux"
 const apiUrl = process.env.REACT_APP_API_URL
 
 const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
     store.dispatch(
         showLoader({
-            "showLoader": true,
+            "loaderMsg": apiPath == '/login' ? 'Just a moment, your login is in progress' : apiPath == '/signup' ? "Please wait while we finish setting up your account" : 'Loading'
         })
     )
     const headers = {
@@ -53,8 +52,6 @@ const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
             console.log('Error while post req', err);
         })
         .finally(() => {
-            console.log('finallyy');
-            
             store.dispatch(
                 hideLoader({
                     "showLoader": false,

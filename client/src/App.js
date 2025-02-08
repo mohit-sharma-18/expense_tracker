@@ -13,15 +13,11 @@ import Loader from './components/Loader';
 import { useEffect } from 'react';
 
 const App = () => {
-
   const toast = useSelector((state) => state.toast)
   const dispatch = useDispatch()
-  console.log('toast', toast);
-  useEffect(() => {
-    console.log(' toast.showLoader', toast.showLoader)
-  })
   return (
     <div className="App">
+      {toast.showLoader && <Loader loaderMsg={toast.loaderMsg} />}
       {toast.showToast &&
         <Toast
           toastHeader={toast.toastHeader}
@@ -30,11 +26,6 @@ const App = () => {
           toastIcon={toast.toastIcon}
           closeToast={() => dispatch(hideToast())}
         />
-
-      }
-      {
-
-        toast.showLoader && <Loader loaderMsg="Loading" />
       }
       <Routes>
         <Route path="/" element={<Navigate to='/login' replace />} />

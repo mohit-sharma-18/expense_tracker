@@ -6,7 +6,8 @@ const initialState = {
     toastColor: '',
     toastIcon: '',
     showToast: false,
-    showLoader: false
+    showLoader: false,
+    loaderMsg: 'Loading'
 };
 
 const toastReducer = (state = initialState, action) => {
@@ -29,6 +30,7 @@ const toastReducer = (state = initialState, action) => {
         case 'SHOW_LOADER':
             return {
                 ...state,
+                loaderMsg: action.payload.loaderMsg ? action.payload.loaderMsg : 'Loading',
                 showLoader: true
             }
         case 'HIDE_LOADER':
