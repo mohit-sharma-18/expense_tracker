@@ -56,7 +56,7 @@ router.get('/', authToken, (req, res) => {
         if (result.rows.length > 0) {
             return res.send(result.rows)
         }
-        return sendErrorResponse(res.status(200), 'Warning', 'No data found')
+        return res.json({ "response": "No data found" })
     })
 })
 
