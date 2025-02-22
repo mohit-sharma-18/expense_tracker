@@ -12,14 +12,13 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.1.1",
     "react-router-dom": "^7.1.1",
-    "react-scripts": "5.0.1",
     "redux": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +40,8 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.23.4",
-    "sass": "^1.83.0"
+    "@vitejs/plugin-react": "^4.3.4",
+    "sass": "^1.83.0",
+    "vite": "^6.1.1"
   }
 }

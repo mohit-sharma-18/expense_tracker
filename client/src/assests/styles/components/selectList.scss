@@ -1,4 +1,4 @@
-@import '../abstracts/variables.scss';
+@use '../abstracts/variables.scss' as v;
 
 .custom-select-wrapper {
   position: relative;
@@ -63,7 +63,7 @@
   p,
   label {
     text-align: left;
-    color: $black;
+    color: v.$black;
     font-weight: 600;
     font-size: 14px;
     margin: 10px 0px 0px 13px;

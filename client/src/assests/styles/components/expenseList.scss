@@ -1,4 +1,4 @@
-@import '../abstracts/variables.scss';
+@use '../abstracts/variables.scss' as v;
 
 .expenseList_comp {
     display: flex;
@@ -46,7 +46,7 @@
         align-items: center;
         justify-content: space-between;
         font-weight: bold;
-        color: $black;
+        color: v.$black;
         background: rgb(229 229 229 / 45%);
         padding: 12px 12px 12px 6px;
         border-radius: 20px;
@@ -61,8 +61,8 @@
             gap: 12px;
 
             .icon {
-                background-color: $primary_color;
-                color: $white;
+                background-color: v.$primary_color;
+                color: v.$white;
                 border-radius: 12px;
                 width: 38px;
                 height: 40px;
@@ -79,7 +79,7 @@
                 text-align: left;
 
                 .listPara {
-                    color: $grey;
+                    color: v.$grey;
                     font-size: 12px;
                 }
             }

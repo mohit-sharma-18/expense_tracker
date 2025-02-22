@@ -1,4 +1,4 @@
-@import '../abstracts/variables.scss';
+@use '../abstracts/variables.scss' as v;
 
 .button {
     width: 100px;
@@ -10,8 +10,8 @@
 }
 
 button.primary {
-    background: $primary_color;
-    color: $white;
+    background: v.$primary_color;
+    color: v.$white;
 }
 
 button.secondary {

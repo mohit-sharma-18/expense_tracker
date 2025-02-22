@@ -1,6 +1,6 @@
 import store from "../redux/store/store"
 import { showToast, showLoader, hideLoader } from "../redux/store/actions"
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
 const callApi = (apiPath, apiMethod, apibody, setLoader, Oauth, token) => {
     store.dispatch(
