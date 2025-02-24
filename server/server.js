@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require("path")
 const db = require('./db.js')
 const app = express()
 const signUp = require('./components/apis/signup.js')
@@ -14,7 +15,7 @@ const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session);
 const pool = require('./db.js')
 const cookieParser = require('cookie-parser');
-const helmet = require("helmet")
+const helmet = require("helmet");
 
 
 app.use(express.json())
