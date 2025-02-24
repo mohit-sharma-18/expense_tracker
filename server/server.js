@@ -33,7 +33,7 @@ app.use('/userProfile', userProfile)
 app.use('/logout', logout)
 
 app.get("*", (req, res) => {
-    res.sendFile(Path.resolve(__dirname, "dist", "index.html"))
+    res.sendFile(path.resolve(__dirname, "dist", "index.html"))
 })
 app.use(
     helmet({
