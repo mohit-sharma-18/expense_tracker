@@ -23,6 +23,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }))
+app.use(express.static("dist"))
 app.use(cookieParser())
 app.use('/signup', signUp)
 app.use('/login', login)
@@ -31,22 +32,25 @@ app.use('/home', home)
 app.use('/userProfile', userProfile)
 app.use('/logout', logout)
 
+app.get("*", (req, res) => {
+    res.sendFile(Path.resolve(__dirname, "dist", "index.html"))
+})
 app.use(
     helmet({
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
                 scriptSrc: [
-                    "'self'", 
-                    "'unsafe-inline'", 
-                    "'unsafe-eval'", 
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
                     "https://accounts.google.com",
                     "https://apis.google.com",
                     "https://www.gstatic.com",
                     "https://www.gstatic.com/_/mss/boq-identity/",
-                  ],
-                  frameSrc: ["'self'", "https://accounts.google.com"],
-                  connectSrc: ["'self'", "https://accounts.google.com", "https://www.gstatic.com"],
+                ],
+                frameSrc: ["'self'", "https://accounts.google.com"],
+                connectSrc: ["'self'", "https://accounts.google.com", "https://www.gstatic.com"],
             },
         },
     })
