@@ -33,8 +33,10 @@ app.use('/home', home)
 app.use('/userProfile', userProfile)
 app.use('/logout', logout)
 
+const distPath = path.join(__dirname, "../client/dist");
+app.use(express.static(distPath));
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html"))
+    res.sendFile(path.resolve(__dirname, distPath, "index.html"))
 })
 app.use(
     helmet({
